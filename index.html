@@ -1,21 +1,1235 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GitHub Pages 测试页</title>
-    <style>
-        body {
-            font-family: system-ui, sans-serif;
-            text-align: center;
-            margin-top: 80px;
-            color: #222;
+<html lang="zh-CN" data-lang="zh" data-page-node-id="AHceBCfYso9BWxz2cIwHW6">
+<head data-page-node-id="smauAkQ3ECJMkNmDKvic98">
+<meta charset="UTF-8" data-page-node-id="51GdFTUfLKRAWgWwFOIjIN">
+<meta name="viewport" content="width=device-width, initial-scale=1" data-page-node-id="vy2TMTjnwtUoMLXxkRC1hA">
+<meta name="color-scheme" content="light" data-page-node-id="pSr0coa5suh0wpmS8lBD4k">
+<meta name="description" content="邓雨晴 (Maggie) · 药物发现博士学术简历：DNA 编码分子库、DNA 编码动态化学文库、非固载靶点筛选、活细胞 FACS 筛选与单分子多肽测序。">
+<title>邓雨晴 (Maggie) · 药物发现博士 | 学术简历</title>
+
+<!--
+  ============================================================================
+  交互式学术简历 · Interactive Academic CV  |  单文件 · HTML + Tailwind CSS
+  ----------------------------------------------------------------------------
+  【内容来源与维护】
+    数据来源：邓雨晴《个人简历 2025.03.18》PDF；全部条目可回溯至原件，
+    未补充原件中不存在的会议报告、奖项或实验平台。
+    1) 全文唯一的编辑入口：文件底部 <script> 中的 const cvData = { ... }。
+       每个字段都是 { zh: '中文', en: 'English' } 结构，改完刷新即可。
+    2) const cfg = { ... } 里可配置：
+         pdfUrl      —— assets/ 下放原始简历 PDF，按钮直接下载；
+                        置为 '' 则调用浏览器打印 → 另存为 PDF（单页精简样式）。
+         showDemoNote —— 顶部提示条开关，默认关闭。
+    3) talks 为空数组时，「学术会议报告」章节自动隐藏；补入数据后会自动
+       重新出现并参与章节重编号。链接写在 links: [{ label, url }]。
+    4) 页面无外部图片、无外部字体：英文 display 统一用系统 Georgia，
+       中文用系统黑体栈；首屏为纯文字单栏版式，不含示意图。
+    5) ⚠ 上线前请二次核对：手机号位数、PCT/CN2024/143 编号完整性、
+       发明人序位、是否有共同一作，以及公开个人联系方式的隐私影响。
+  ----------------------------------------------------------------------------
+  【GitHub Pages 部署】
+    git init && git add index.html && git commit -m "feat: academic CV"
+    git remote add origin https://github.com/<USER>/<USER>.github.io.git
+    git push -u origin main
+    → Settings → Pages → Deploy from a branch → main / (root) → Save
+    → 访问 https://<USER>.github.io/
+  详见文末回复中的完整教程。
+  ============================================================================
+-->
+
+<!-- 字体：全系统字体栈，不发起任何外部字体请求
+     英文 display = Georgia（衬线，自带 old-style 数字，适合期刊名与量化指标）
+     中文 = 系统黑体栈；正文 = 系统 UI 字体栈 -->
+
+<!-- Tailwind CSS（Play CDN，单文件场景；生产建议编译为本地 CSS，见部署教程） -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  if (window.tailwind) {
+    tailwind.config = {
+      corePlugins: { preflight: true },
+      theme: {
+        extend: {
+          colors: {
+            paper:'#F7F6F2', surface:'#FFFFFF', ink:'#1E2A33',
+            accent:'#2F5A57', line:'#DDE0D9', brass:'#8A7148'
+          },
+          fontFamily: {
+            display:['Georgia','"Times New Roman"','serif'],
+            hei:['"PingFang SC"','"Hiragino Sans GB"','"Microsoft YaHei"','"Noto Sans SC"','"Source Han Sans SC"','sans-serif']
+          }
         }
-    </style>
+      }
+    };
+  }
+</script>
+
+<style>
+/* ==========================================================================
+   0. Design tokens — 低饱和学术/药企研发配色
+   ========================================================================== */
+:root{
+  --paper:#F7F6F2; --surface:#FFFFFF; --surface-2:#F1F2EE; --surface-3:#FAFAF7;
+  --ink:#1E2A33; --ink-2:#3C4A53; --muted:#6E7A80; --faint:#9BA5A6;
+  --line:#DDE0D9; --line-2:#EAECE6;
+  --accent:#2F5A57; --accent-2:#4A7770; --accent-soft:#E6EFEB; --accent-line:#C6D8CF;
+  --brass:#8A7148; --brass-soft:#F2EEE4; --brass-line:#E1D7C2;
+  --display:Georgia,'Times New Roman',serif;   /* 系统衬线，零网络请求 */
+  --hei:'PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans SC','Source Han Sans SC','Heiti SC',sans-serif;
+  --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue','PingFang SC','Microsoft YaHei','Noto Sans SC',sans-serif;
+  --nav-h:64px;
+}
+
+/* ==========================================================================
+   1. Base — 用类选择器保证在 Tailwind preflight 之后仍生效
+   ========================================================================== */
+*,*::before,*::after{box-sizing:border-box}
+[hidden]{display:none!important}   /* 保证 hidden 属性不被 .demo / .mobile-menu 的类选择器覆盖 */
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--nav-h) + 18px);-webkit-text-size-adjust:100%}
+html body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);
+  font-size:15px;line-height:1.78;letter-spacing:.012em;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+html[data-lang="en"] body{letter-spacing:.004em}
+::selection{background:var(--accent-soft);color:var(--accent)}
+a{color:inherit}
+a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+strong,b{font-weight:700;color:var(--ink)}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+.section{padding:64px 0;border-bottom:1px solid var(--line-2)}
+.section:last-of-type{border-bottom:0}
+.skip{position:absolute;left:-9999px;top:0;background:var(--ink);color:#fff;padding:10px 16px;z-index:100}
+.skip:focus{left:12px;top:12px}
+.print-only{display:none!important}
+
+/* ==========================================================================
+   2. 布局原语（不依赖 CDN，离线/打印仍成立）
+   ========================================================================== */
+.g2{display:grid;grid-template-columns:1fr;gap:24px}
+.g3{display:grid;grid-template-columns:1fr;gap:18px}
+.g4{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.row{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.stack{display:flex;flex-direction:column;gap:10px}
+@media(min-width:768px){.g2{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:repeat(2,1fr)}.g4{grid-template-columns:repeat(4,1fr)}}
+@media(min-width:1024px){.g3{grid-template-columns:repeat(3,1fr)}}
+
+/* ==========================================================================
+   3. Typography
+   ========================================================================== */
+.kicker{font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--accent);font-weight:700;margin:0}
+.small-label{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:700;margin:0}
+.serif{font-family:var(--display)}
+.italic{font-style:italic}
+.hairline{height:1px;background:var(--line);border:0;margin:0}
+
+.sec-head{display:flex;align-items:flex-end;gap:16px;padding-bottom:14px;border-bottom:1px solid var(--line);margin-bottom:30px}
+.sec-num{font-family:var(--display);font-size:32px;line-height:.9;font-weight:500;color:var(--faint);min-width:42px}
+.sec-titles{flex:1;min-width:0}
+.sec-title{font-family:var(--hei);font-size:21px;font-weight:600;letter-spacing:.07em;line-height:1.3;margin:3px 0 0}
+.sec-note{margin-left:auto;font-family:var(--display);font-style:italic;font-size:17px;color:var(--muted);white-space:nowrap}
+@media(max-width:767px){.sec-note{display:none}.sec-title{font-size:19px}.sec-num{font-size:27px;min-width:34px}}
+
+/* ==========================================================================
+   4. 顶部导航 / 示例提示
+   ========================================================================== */
+.demo{display:flex;align-items:center;justify-content:center;gap:9px;background:var(--brass-soft);
+  border-bottom:1px solid var(--brass-line);color:#6D5A38;font-size:11.5px;letter-spacing:.02em;
+  padding:7px 42px 7px 16px;position:relative;line-height:1.5;text-align:center}
+.demo-dot{width:6px;height:6px;border-radius:50%;background:var(--brass);flex:none}
+.demo-close{position:absolute;right:12px;top:50%;transform:translateY(-50%);border:0;background:none;
+  color:#8A7148;font-size:18px;line-height:1;cursor:pointer;padding:2px 6px}
+.nav{position:sticky;top:0;z-index:50;background:rgba(247,246,242,.92);backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav-inner{height:var(--nav-h);display:flex;align-items:center;justify-content:space-between;gap:18px}
+.brand{display:flex;align-items:center;gap:11px;text-decoration:none;min-width:0}
+.brand-mark{width:34px;height:34px;flex:none;border:1px solid var(--accent);display:grid;place-items:center;
+  font-family:var(--display);font-size:19px;font-weight:600;color:var(--accent);letter-spacing:.02em}
+.brand-name{font-family:var(--hei);font-weight:600;font-size:14px;letter-spacing:.1em;line-height:1.2;white-space:nowrap}
+.brand-tag{font-size:10px;color:var(--muted);letter-spacing:.06em;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nav-links{display:none;align-items:center;gap:26px}
+@media(min-width:960px){.nav-links{display:flex}}
+.nav-link{font-size:12.5px;color:var(--ink-2);text-decoration:none;letter-spacing:.09em;position:relative;padding:6px 0;white-space:nowrap}
+.nav-link::after{content:'';position:absolute;left:0;right:100%;bottom:0;height:1px;background:var(--accent);transition:right .22s ease}
+.nav-link:hover::after,.nav-link.active::after{right:0}
+.nav-link.active{color:var(--accent);font-weight:600}
+.nav-ctrl{display:flex;align-items:center;gap:10px}
+#btnPdf{white-space:nowrap}   /* 英文文案较长时保持单行，避免按钮被挤成两行 */
+.seg{display:flex;border:1px solid var(--line);background:var(--surface);border-radius:2px;overflow:hidden}
+.seg button{border:0;background:none;font-size:11.5px;letter-spacing:.08em;color:var(--muted);
+  padding:6px 10px;cursor:pointer;transition:background .18s ease,color .18s ease;font-family:var(--sans)}
+.seg button+button{border-left:1px solid var(--line)}
+.seg button[aria-pressed="true"]{background:var(--accent);color:#fff;font-weight:700}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid var(--accent);
+  color:var(--accent);background:transparent;font-size:12px;letter-spacing:.08em;font-weight:600;
+  padding:9px 15px;border-radius:2px;cursor:pointer;text-decoration:none;
+  transition:background .2s ease,color .2s ease,transform .2s ease,border-color .2s ease}
+.btn:hover{background:var(--accent);color:#fff;transform:translateY(-1px)}
+.btn-solid{background:var(--accent);color:#fff}
+.btn-solid:hover{background:#254B48}
+.btn-quiet{border-color:var(--line);color:var(--ink-2)}
+.btn-quiet:hover{border-color:var(--accent);background:var(--accent);color:#fff}
+.btn svg{width:13px;height:13px;flex:none}
+.menu-btn{display:grid;place-items:center;width:34px;height:34px;border:1px solid var(--line);
+  background:var(--surface);cursor:pointer;border-radius:2px;color:var(--ink-2)}
+@media(min-width:960px){.menu-btn{display:none}}
+.mobile-menu{border-bottom:1px solid var(--line);background:var(--surface);padding:8px 24px 14px}
+.mobile-menu a{display:block;padding:9px 0;font-size:13px;text-decoration:none;border-bottom:1px solid var(--line-2);letter-spacing:.08em}
+.mobile-menu a:last-child{border-bottom:0}
+
+/* ==========================================================================
+   5. Hero
+   ========================================================================== */
+.hero{padding:62px 0 58px;border-bottom:1px solid var(--line);position:relative;overflow:hidden}
+/* 示意图移除后改为单栏：指标条贯通整行与章节分割线对齐；正文行长由 .hero-intro 单独限制 */
+.hero-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:0;align-items:start}
+@media(min-width:960px){.hero{padding:86px 0 74px}}
+.hero-kicker{display:flex;align-items:center;gap:12px;font-size:10.5px;letter-spacing:.26em;
+  text-transform:uppercase;color:var(--accent);font-weight:700;margin:0 0 26px}
+.hero-kicker::before{content:'';width:22px;height:1px;background:var(--accent);flex:none}
+.name-cn{font-family:var(--hei);font-weight:300;letter-spacing:.16em;line-height:1.18;margin:0;transition:font-size .3s ease,color .3s ease}
+.name-en{font-family:var(--display);font-style:italic;font-weight:500;color:var(--accent);
+  line-height:1.06;margin:8px 0 0;letter-spacing:.005em;transition:font-size .3s ease}
+html[data-lang="zh"] .name-cn{font-size:clamp(38px,6.4vw,62px)}
+html[data-lang="zh"] .name-en{font-size:clamp(30px,4.6vw,46px)}
+html[data-lang="en"] .name-cn{font-size:clamp(23px,3.2vw,32px);color:var(--muted);letter-spacing:.2em}
+html[data-lang="en"] .name-en{font-size:clamp(44px,7.2vw,76px)}
+.hero-role{font-family:var(--hei);font-size:14px;font-weight:600;letter-spacing:.06em;color:var(--ink-2);margin:22px 0 0;line-height:1.7}
+.hero-loc{font-size:12px;color:var(--muted);letter-spacing:.05em;margin:5px 0 0}
+.hero-intro{font-size:14px;line-height:1.9;color:var(--ink-2);margin:20px 0 0;max-width:68ch}
+.hero-intro strong{color:var(--accent);font-weight:700}
+.hero-cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:28px}
+.metrics{display:grid;grid-template-columns:repeat(2,1fr);gap:0;border-top:1px solid var(--line);margin-top:34px}
+@media(min-width:640px){.metrics{grid-template-columns:repeat(4,1fr)}}
+.metric{padding:16px 12px 2px 0;border-right:1px solid var(--line-2)}
+.metric:last-child{border-right:0}
+.metric-n{font-family:var(--display);font-size:34px;font-weight:600;line-height:1;color:var(--accent);display:block}
+.metric-l{font-size:11px;color:var(--muted);letter-spacing:.04em;line-height:1.5;display:block;margin-top:6px}
+/* 首屏示意图（figure / caption / triad）已移除，Hero 保持纯文字单栏 */
+
+/* ==========================================================================
+   6. 通用组件：卡片 / 标签 / 徽章
+   ========================================================================== */
+.card{background:var(--surface);border:1px solid var(--line);border-radius:2px;padding:22px;
+  transition:transform .22s ease,border-color .22s ease,box-shadow .22s ease}
+.card:hover{transform:translateY(-2px);border-color:var(--accent-line);box-shadow:0 10px 26px rgba(30,42,51,.055)}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag{display:inline-flex;align-items:center;border:1px solid var(--line);background:var(--surface-2);
+  color:var(--ink-2);font-size:11px;letter-spacing:.03em;padding:3px 9px;border-radius:2px;line-height:1.6}
+.tag-accent{border-color:var(--accent-line);background:var(--accent-soft);color:var(--accent);font-weight:700}
+.badge{display:inline-flex;align-items:center;white-space:nowrap;font-size:10.5px;font-weight:700;
+  letter-spacing:.06em;padding:2px 8px;border-radius:2px;line-height:1.7}
+.badge-first{background:var(--accent);color:#fff;border:1px solid var(--accent)}
+.badge-co{background:transparent;color:var(--accent);border:1px solid var(--accent)}
+.badge-plain{background:var(--surface-2);color:var(--muted);border:1px solid var(--line)}
+.badge-brass{background:var(--brass-soft);color:var(--brass);border:1px solid var(--brass-line)}
+.link-chip{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;color:var(--accent);
+  text-decoration:none;border-bottom:1px solid var(--accent-line);padding-bottom:1px;letter-spacing:.03em;
+  transition:border-color .2s ease,color .2s ease}
+.link-chip:hover{border-color:var(--accent);color:var(--ink)}
+.link-chip.pending{color:var(--faint);border-bottom:1px dashed var(--line);cursor:default}
+.muted{color:var(--muted)}
+.body-text{font-size:14px;line-height:1.95;color:var(--ink-2);margin:0}
+.body-text strong{color:var(--accent);font-weight:700}
+
+/* ==========================================================================
+   7. 时间轴
+   ========================================================================== */
+.tl{position:relative}
+.tl::before{content:'';position:absolute;left:7px;top:12px;bottom:16px;width:1px;background:var(--line)}
+.tl-item{position:relative;padding-left:34px;padding-bottom:22px}
+.tl-item:last-child{padding-bottom:0}
+.tl-item::before{content:'';position:absolute;left:2px;top:9px;width:11px;height:11px;border-radius:50%;
+  border:2px solid var(--accent);background:var(--paper);z-index:1}
+.tl-year{font-family:var(--display);font-size:21px;font-weight:600;color:var(--accent);line-height:1.2;display:block}
+.tl-kind{font-size:10.5px;letter-spacing:.12em;color:var(--muted);text-transform:uppercase;display:block;margin-top:3px}
+.tl-role{font-family:var(--hei);font-size:16px;font-weight:600;letter-spacing:.03em;margin:0 0 2px}
+.tl-org{font-size:12.5px;color:var(--muted);margin:0 0 12px;letter-spacing:.03em}
+.tl-points{list-style:none;padding:0;margin:0}
+.tl-points li{position:relative;padding-left:16px;font-size:13.5px;line-height:1.85;color:var(--ink-2);margin-bottom:7px}
+.tl-points li::before{content:'';position:absolute;left:0;top:11px;width:5px;height:1px;background:var(--accent-2)}
+.tl-points li:last-child{margin-bottom:0}
+.tl-points strong{color:var(--ink);font-weight:700}
+@media(min-width:900px){
+  .tl::before{left:154px}
+  .tl-item{display:grid;grid-template-columns:140px 1fr;gap:28px;padding-left:0}
+  .tl-item::before{left:149px;top:11px}
+  .tl-meta{padding-top:0}
+}
+
+/* ==========================================================================
+   8. 论文 / 专利 / 会议 / 奖项 列表
+   ========================================================================== */
+.list-row{display:grid;grid-template-columns:38px 1fr;gap:14px;padding:17px 0;border-bottom:1px solid var(--line-2)}
+.list-row:last-child{border-bottom:0}
+.list-n{font-family:var(--display);font-size:23px;color:var(--faint);line-height:1.2}
+.pub-title{font-size:14.5px;font-weight:600;line-height:1.6;margin:0 0 4px;color:var(--ink)}
+.pub-authors{font-size:12px;color:var(--muted);margin:0 0 5px;line-height:1.6}
+.pub-journal{font-family:var(--display);font-style:italic;font-size:18px;color:var(--accent);font-weight:600}
+.pub-note{font-size:12.5px;color:var(--ink-2);margin:8px 0 0;line-height:1.7}
+.pub-meta{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:7px}
+.pat-row{display:grid;grid-template-columns:1fr;gap:8px;padding:15px 0;border-bottom:1px solid var(--line-2)}
+.pat-row:last-child{border-bottom:0}
+@media(min-width:768px){.pat-row{grid-template-columns:1.6fr .9fr .7fr .7fr;align-items:center;gap:16px}}
+.pat-name{font-size:14px;font-weight:600;line-height:1.6;margin:0}
+.pat-id{font-family:var(--display);font-size:16px;color:var(--muted);letter-spacing:.03em}
+.talk-row,.award-row{display:flex;gap:14px;align-items:flex-start;padding:13px 0;border-bottom:1px solid var(--line-2)}
+.talk-row:last-child,.award-row:last-child{border-bottom:0}
+.talk-year,.award-year{font-family:var(--display);font-size:20px;font-weight:600;color:var(--accent);min-width:52px;line-height:1.3}
+.talk-main{flex:1;min-width:0}
+.talk-title{font-size:13.5px;font-weight:600;line-height:1.6;margin:0}
+.talk-sub{font-size:12px;color:var(--muted);margin:2px 0 0;line-height:1.6}
+
+/* ==========================================================================
+   9. 技能分组 / 项目卡片
+   ========================================================================== */
+.skill-group{background:var(--surface);border:1px solid var(--line);padding:20px;
+  transition:border-color .22s ease,transform .22s ease}
+.skill-group:hover{border-color:var(--accent-line);transform:translateY(-2px)}
+.skill-head{display:flex;align-items:baseline;gap:10px;border-bottom:1px solid var(--line-2);padding-bottom:10px;margin-bottom:14px}
+.skill-en{font-family:var(--display);font-style:italic;font-size:20px;font-weight:600;color:var(--accent);line-height:1}
+.skill-cn{font-family:var(--hei);font-size:12.5px;font-weight:600;letter-spacing:.06em;color:var(--ink-2)}
+.skill-desc{font-size:12px;color:var(--muted);line-height:1.7;margin:0 0 12px}
+.proj-head{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;flex-wrap:wrap;
+  border-bottom:1px solid var(--line-2);padding-bottom:14px;margin-bottom:16px}
+.proj-idx{font-family:var(--display);font-size:15px;color:var(--faint);letter-spacing:.1em}
+.proj-title{font-family:var(--hei);font-size:17px;font-weight:600;letter-spacing:.03em;margin:3px 0 0;line-height:1.5}
+.proj-target{font-size:11.5px;color:var(--accent);font-weight:700;letter-spacing:.06em;margin:5px 0 0}
+.field-label{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:700;margin:0 0 5px}
+.field-body{font-size:13px;line-height:1.8;color:var(--ink-2);margin:0}
+.field-body strong{color:var(--accent);font-weight:700}
+.proj-grid{display:grid;grid-template-columns:1fr;gap:18px 26px}
+@media(min-width:768px){.proj-grid{grid-template-columns:repeat(2,1fr)}}
+.flow{list-style:none;counter-reset:flow;padding:0;margin:0}
+.flow li{counter-increment:flow;position:relative;padding-left:22px;font-size:12.8px;line-height:1.8;color:var(--ink-2);margin-bottom:5px}
+.flow li::before{content:counter(flow,decimal-leading-zero);position:absolute;left:0;top:0;
+  font-family:var(--display);font-size:14px;color:var(--accent);font-weight:600}
+.finding-box{background:var(--accent-soft);border-left:2px solid var(--accent);padding:12px 14px}
+.finding-box .field-label{color:var(--accent)}
+.finding-box .field-body{color:#264A46}
+.proj-foot{display:flex;align-items:center;gap:14px;flex-wrap:wrap;border-top:1px solid var(--line-2);
+  margin-top:16px;padding-top:13px}
+.proj-links{display:flex;gap:14px;flex-wrap:wrap;margin-left:auto}
+
+/* ==========================================================================
+   10. 联系区 / 页脚 / 回到顶部
+   ========================================================================== */
+.contact-card{background:var(--surface);border:1px solid var(--line);padding:26px}
+.contact-item{display:flex;gap:12px;align-items:baseline;padding:11px 0;border-bottom:1px solid var(--line-2)}
+.contact-item:last-child{border-bottom:0}
+.contact-k{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:700;min-width:88px}
+.contact-v{font-size:13.5px;color:var(--ink);word-break:break-all}
+.contact-v a{text-decoration:none;border-bottom:1px solid var(--accent-line)}
+.contact-v a:hover{border-color:var(--accent);color:var(--accent)}
+.contact-note{background:var(--surface-2);border-left:2px solid var(--accent);padding:16px 18px;font-size:13px;line-height:1.9;color:var(--ink-2)}
+.footer{padding:26px 0 34px;border-top:1px solid var(--line);font-size:11.5px;color:var(--muted)}
+.to-top{position:fixed;right:18px;bottom:18px;width:38px;height:38px;border:1px solid var(--line);
+  background:var(--surface);color:var(--accent);cursor:pointer;border-radius:2px;font-size:16px;
+  opacity:0;pointer-events:none;transition:opacity .22s ease,transform .22s ease;z-index:40;
+  box-shadow:0 4px 14px rgba(30,42,51,.07)}
+.to-top.show{opacity:1;pointer-events:auto}
+.to-top:hover{transform:translateY(-2px);border-color:var(--accent)}
+
+/* ==========================================================================
+   10.5 移动端收紧：避免导航控件把整行撑宽造成横向溢出
+   ========================================================================== */
+.nowrap{white-space:nowrap}
+.hero-intro,.body-text,.field-body,.tl-points li,.pub-title,.pub-note,.contact-v{overflow-wrap:anywhere}
+@media(max-width:640px){
+  html{overflow-x:clip}
+  .wrap{padding:0 16px}
+  .demo{font-size:10.5px;padding:6px 30px 6px 12px;line-height:1.45}
+  .nav-inner{gap:8px}
+  .brand-tag{display:none}
+  .brand-mark{width:30px;height:30px;font-size:17px}
+  .brand-name{font-size:13px}
+  #btnPdf{display:none}             /* 移动端由首屏 CTA / 联系区承担下载入口 */
+  .seg button{padding:6px 8px;font-size:11px}
+  .hero{padding:44px 0 42px}
+  .hero-kicker{margin-bottom:20px;font-size:9.5px;letter-spacing:.2em}
+  .hero-intro{font-size:13.5px;line-height:1.85}
+  .section{padding:48px 0}
+  .sec-head{margin-bottom:22px}
+  .card{padding:18px}
+  .g2[style],#body-summary .g2,#body-contact .g2{grid-template-columns:1fr!important;gap:22px!important}
+  .proj-foot{flex-direction:column;align-items:flex-start}
+  .proj-links{margin-left:0}
+  .contact-item{flex-direction:column;gap:2px}
+  .contact-k{min-width:0}
+}
+
+/* ==========================================================================
+   11. 动效降级
+   ========================================================================== */
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{transition-duration:.01ms!important;animation-duration:.01ms!important}
+}
+
+/* ==========================================================================
+   12. 打印：双栏精简一页 CV（Chrome: 打印 → 目标「另存为 PDF」）
+   ========================================================================== */
+@media print{
+  @page{size:A4;margin:10mm 12mm}
+  html{scroll-behavior:auto;scroll-padding-top:0}
+  html body{background:#fff!important;color:#111!important;font-size:6.8pt!important;line-height:1.16!important;letter-spacing:0!important;-webkit-print-color-adjust:economy}
+  /* 打印版去掉纯导航性元素：外链、经历类型标签、项目装饰标签 */
+  .no-print,.demo,.nav,.mobile-menu,.to-top,.footer,.hero-cta,.sec-note,.print-hide,
+  .link-chip,.tl-kind,.proj-head .tags{display:none!important}
+  .print-only{display:block!important}
+  .wrap{max-width:none!important;padding:0!important;width:100%!important}
+  main{column-count:2;column-gap:7mm}
+  /* 章节允许跨栏流动；只在条目级避免断裂，避免整节被推到下一页 */
+  .hero,.section{padding:0 0 1pt!important;border-color:#ccc!important}
+  /* 精简版：概述保留第 1 段；教育卡隐去研究方向正文，保留学位 / 学校 / 时间 */
+  #body-summary .body-text:nth-child(n+3){display:none!important}
+  #body-education .card > p:last-child{display:none!important}
+  .kicker,.sec-head .kicker,.tags,.metric{border:0!important}
+  .kicker,.sec-head .kicker,.hero-kicker,.small-label,.proj-idx,.proj-links{display:none!important}
+  /* 打印版隐去装饰性标签；技术栈分组中的标签本身就是内容，保留 */
+  .tags{display:none!important}
+  #body-skills .tags{display:flex!important}
+  .card,.skill-group,.list-row,.tl-item,.proj-card,.talk-row,.award-row{break-inside:avoid}
+  .tl-points li:nth-child(n+2){display:none!important}          /* 每段经历保留 1 条核心成果 */
+  #body-publications .list-row:nth-child(n+4){display:none!important} /* 精选前 3 篇 */
+  #body-skills .tags .tag:nth-child(n+5){display:none!important}      /* 每组保留 4 项技术 */
+  #body-education .card:nth-child(n+3){display:none!important}        /* 精选最高 2 段学历 */
+  #body-projects .proj-card:nth-child(n+2){display:none!important}    /* 精选 1 个项目 */
+  #sec-patents,.hero-intro,.pub-note,.skill-desc,.contact-note{display:none!important}
+  #body-contact .contact-item:nth-child(3),
+  #body-contact .contact-item:nth-child(4),
+  #body-contact .contact-item:nth-child(7){display:none!important}
+  /* 如需把会议 / 奖项 / 专利放回打印版，删除上面 #sec-patents 与下方 #sec-talks 相关规则即可 */
+  .hero{column-span:all;border-bottom:1px solid #333!important;margin-bottom:6pt!important}
+  .hero-grid{display:block!important}
+  .hero-kicker{margin:0 0 4pt!important;font-size:6.5pt!important}
+  .name-cn{font-size:13pt!important;letter-spacing:.1em!important}
+  .name-en{font-size:18pt!important;margin:0 0 2pt!important}
+  .hero-role{font-size:8.5pt!important;margin:4pt 0 0!important}
+  .hero-loc{font-size:7pt!important;margin:0!important}
+  .hero-intro{font-size:8pt!important;line-height:1.4!important;margin:4pt 0 0!important;max-width:none!important}
+  .metrics{margin-top:5pt!important;border-color:#ccc!important}
+  .metric{padding:4pt 6pt 0 0!important;border-color:#e2e2e2!important}
+  .metric-n{font-size:12pt!important}
+  .metric-l{font-size:6.5pt!important;margin-top:1pt!important}
+  .sec-head{margin:0 0 2pt!important;padding:0 0 1pt!important;gap:5pt!important;border-color:#bbb!important}
+  .sec-num{font-size:12pt!important;min-width:16pt!important}
+  .sec-title{font-size:9pt!important}
+  .kicker{font-size:6pt!important}
+  .card,.skill-group,.contact-card{background:#fff!important;border:0!important;border-bottom:1px solid #ddd!important;
+    border-radius:0!important;box-shadow:none!important;padding:0 0 2pt!important;margin:0 0 2pt!important;break-inside:avoid}
+  .card:hover,.skill-group:hover{transform:none!important;box-shadow:none!important}
+  .tl::before,.tl-item::before{display:none!important}
+  .tl-item{display:block!important;padding:0 0 2pt!important}
+  .tl-year{font-size:9.5pt!important}
+  .tl-kind{font-size:6pt!important;margin:0 0 2pt!important}
+  .tl-role{font-size:9pt!important}
+  .tl-org{font-size:7pt!important;margin:0 0 3pt!important}
+  .tl-points li{font-size:7.1pt!important;line-height:1.3!important;padding-left:9pt!important;margin-bottom:1pt!important}
+  .badge{background:#fff!important;color:#111!important;border:1px solid #999!important;font-size:6.5pt!important;padding:0 3pt!important}
+  .tag{font-size:6.5pt!important;padding:0 3pt!important;border-color:#ccc!important;background:#fff!important;color:#333!important}
+  .tag-accent{color:#111!important;font-weight:700!important}
+  .body-text,.field-body,.pub-title,.pat-name,.talk-title,.contact-v{font-size:7.5pt!important;line-height:1.3!important}
+  .pub-journal,.skill-en,.list-n{font-size:10pt!important}
+  .list-row{padding:1.5pt 0!important;grid-template-columns:14pt 1fr!important;gap:4pt!important}
+  .pub-meta{margin-bottom:2pt!important}
+  .pub-note{font-size:7.4pt!important;margin:2pt 0 0!important}
+  .pat-row{grid-template-columns:1.7fr .9fr .6fr .6fr!important;padding:4pt 0!important;gap:6pt!important}
+  .talk-row,.award-row{padding:4pt 0!important}
+  .talk-year,.award-year{font-size:10pt!important;min-width:24pt!important}
+  /* 打印版顶部已有单行联系方式，整块联系区 / 会议 / 奖项略去 */
+  .section#sec-talks,.section#sec-awards,.section#sec-contact{display:none!important}
+  .proj-detail{display:none!important}                          /* 项目仅保留标题 + 关键结果 */
+  .finding-box{background:#fff!important;border-left:1px solid #666!important;padding:2pt 5pt!important}
+  .proj-links,.contact-note,.proj-foot .tags{display:none!important}
+  .proj-grid{display:block!important;gap:0!important}
+  .contact-card{padding:0!important}
+  .contact-item{padding:2pt 0!important;border:0!important}
+  .contact-k{min-width:56pt!important;font-size:6.5pt!important}
+  .footer,.print-hide{display:none!important}
+  a{color:#111!important;text-decoration:none!important;border:0!important}
+  strong,b{color:#111!important}
+  .print-contact{font-size:7.5pt!important;color:#333!important;border-bottom:1px solid #333!important;padding-bottom:3pt!important;margin-bottom:4pt!important}
+}
+</style>
 </head>
-<body>
-    <h1>✅ GitHub Pages 部署成功！</h1>
-    <p>这是最简测试 index.html</p>
-    <p>时间：测试页面</p>
+
+<body data-page-node-id="yMqx2iDhNZb74jRUGIiBEF">
+<a class="skip" href="#main" data-ui="skip" data-page-node-id="f0wfPZH028z9V5Fbfn4JRN">跳到主要内容</a>
+
+<!-- 顶部提示条：默认隐藏；需展示数据版本说明时把 cfg.showDemoNote 改为 true -->
+<div class="demo no-print" id="demoNote" data-page-node-id="1ZwG0UZJ0yfwDlUfFDCuHg">
+  <span class="demo-dot" aria-hidden="true" data-page-node-id="LG2kCaiMXt8IL1fBqemYGG"></span>
+  <span id="demoText" data-page-node-id="TiAk7vUlv7fcXASuvEAwFB"></span>
+  <button class="demo-close" id="demoClose" aria-label="关闭提示" data-page-node-id="dM4Dks4yWSgT0Kriitd3Py">&times;</button>
+</div>
+
+<!-- 顶部导航 -->
+<header class="nav no-print" id="siteNav" data-page-node-id="BohkRJMeymc2cFhQ919eVa">
+  <div class="wrap nav-inner" data-page-node-id="o2Nmae3CfiBYscb4spnnaw">
+    <a class="brand" href="#top" data-page-node-id="aQAWTHDeyyxs10UELaVPiD">
+      <span class="brand-mark" id="brandMark" data-page-node-id="zCI84pt8Dd1D366kL7hKJR">ZL</span>
+      <span data-page-node-id="OmIGs2z3M9bkxkCUPk7oBP">
+        <span class="brand-name" id="brandName" data-page-node-id="WZa0yC75jgPSh4ckPUFF3C"></span>
+        <span class="brand-tag" id="brandTag" data-page-node-id="JKbs3SdSGm41j4swM47JdW"></span>
+      </span>
+    </a>
+    <nav class="nav-links" id="navLinks" aria-label="章节导航" data-page-node-id="SOzVKkbpPLNTlVizKDqXyI"></nav>
+    <div class="nav-ctrl" data-page-node-id="GT0zyqJtC9frgcZXnVF4MU">
+      <div class="seg" role="group" aria-label="Language / 界面语言" data-page-node-id="HtangyTpc2li2ssDTvAPgH">
+        <button type="button" id="btnZH" aria-pressed="true" data-page-node-id="7qD9dIilNG8JtG6Fg7FTJ5">中</button>
+        <button type="button" id="btnEN" aria-pressed="false" data-page-node-id="VM6qNlW3F96HgqQR1odhkt">EN</button>
+      </div>
+      <button type="button" class="btn" id="btnPdf" title="" data-page-node-id="qq1LGCaC8xbQZAgt4N5qom">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" data-page-node-id="KCBQeNR1B07Du0RuHB5xaj"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 17v3h16v-3" data-page-node-id="dFapyEOBHJjajRZz7rSNx7"/></svg>
+        <span data-ui="pdf" data-page-node-id="h1Tao5WTQCAvPBuvRs4P2N">下载 PDF</span>
+      </button>
+      <button type="button" class="menu-btn" id="btnMenu" aria-label="打开目录" aria-expanded="false" data-page-node-id="KFE7UpF1fNF2MWGbYFekcD">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" data-page-node-id="6IjBZuah5yhdJ8bKolJN7h"><path d="M3 6h18M3 12h18M3 18h18" data-page-node-id="gCz4szwx0Kr8VedyIUo5VD"/></svg>
+      </button>
+    </div>
+  </div>
+  <nav class="mobile-menu no-print" id="mobileMenu" hidden aria-label="移动端章节导航" data-page-node-id="U5SVhhgx7z7BRoTzbzacIX"></nav>
+</header>
+
+<main id="main" class="wrap" data-page-node-id="SvCDg5rqm5le1xkHhqoJ0O">
+  <div class="print-only print-contact" id="printContact" data-page-node-id="Ks1hmUJMaZVgDefISlG3gm"></div>
+
+  <!-- 01 Hero -->
+  <section class="hero" id="top" data-page-node-id="XdBqe9yHdCafBM04AgLEY5">
+    <div class="hero-grid" data-page-node-id="WUoj0aAIrjOt69RUXBCRr4">
+      <div data-page-node-id="RRwsDwIzuAigkDkZrI5EkZ">
+        <p class="hero-kicker" data-ui="heroKicker" data-page-node-id="xMYQrgLKAMgCk958CqL0QD"></p>
+        <h1 class="name-cn" id="nameCN" data-page-node-id="aVhfFt5U0dGY3X7GT2tfTO"></h1>
+        <p class="name-en" id="nameEN" data-page-node-id="8Q6BGO4VUSa36Cx6oz31Uh"></p>
+        <p class="hero-role" id="heroRole" data-page-node-id="m7hYGuD8243DFbsBhbz2HR"></p>
+        <p class="hero-loc" id="heroLoc" data-page-node-id="dq6w09Cf7dI9VuHkJj0VA4"></p>
+        <p class="hero-intro" id="heroIntro" data-page-node-id="J9uV6zAr6Fd7an7KJFzBYX"></p>
+        <div class="hero-cta no-print" data-page-node-id="u8bddzeQxC3y3tRZDAFc3f">
+          <a class="btn btn-solid" href="#experience" data-ui="heroCta1" data-page-node-id="xXUxJuj2gSRs9TKBs4OK15"></a>
+          <button type="button" class="btn btn-quiet" id="btnPdf2" data-ui="heroCta2" data-page-node-id="28eHLlQDFH0clYBV4KtAnH"></button>
+        </div>
+        <div class="metrics" id="metrics" data-page-node-id="7vS6zFEoAE3Px9NrlXzam2"></div>
+      </div>
+
+      <!-- 首屏示意图已移除：纯文字单栏版式，无外部图片 -->
+    </div>
+  </section>
+
+  <!-- 02–11 各章节：标题与内容均由 JS 依据当前语言渲染 -->
+  <section class="section" id="sec-summary" data-page-node-id="JfKcJv6dlZLuGq9gq0H5TO"><div class="sec-head" data-sec="summary" data-page-node-id="zKv1Fp6KMbTaM520DiHHCR"></div><div id="body-summary" data-page-node-id="yi9ScSUDqld52IC2hVBs9F"></div></section>
+  <section class="section" id="sec-experience" data-page-node-id="yYUbozKrC2ArY9lochLZ62"><div class="sec-head" data-sec="experience" data-page-node-id="eVAY5utudLmXOEGGWw9zMc"></div><div id="body-experience" data-page-node-id="Ia6RBtganBO8BNZ0k7Vqea"></div></section>
+  <section class="section" id="sec-education" data-page-node-id="Rf6Ml3GRF3kexbWOMroeDQ"><div class="sec-head" data-sec="education" data-page-node-id="jssL6jj5CdajBNcnrE0KmJ"></div><div id="body-education" data-page-node-id="sHmMQ9MvPgpgaOO2Fw2YgN"></div></section>
+  <section class="section" id="sec-publications" data-page-node-id="TTFl1uZAILalpBg8UOECPi"><div class="sec-head" data-sec="publications" data-page-node-id="25HUO5PBdXjRu9KHHdhEMm"></div><div id="body-publications" data-page-node-id="8WVi2sJ1lL2AofSkrQxGYZ"></div></section>
+  <section class="section" id="sec-patents" data-page-node-id="SZVqKMwyPjbiufejmBBSY5"><div class="sec-head" data-sec="patents" data-page-node-id="kzp0t0vJEfavDUALKvU9zj"></div><div id="body-patents" data-page-node-id="1cMn4HiNIKrmgGOOL3PvAD"></div></section>
+  <section class="section" id="sec-skills" data-page-node-id="2NEvAyMNmekfKmAo1Fkpzf"><div class="sec-head" data-sec="skills" data-page-node-id="BUjLOudMWQbuNhi1GpRoCO"></div><div id="body-skills" data-page-node-id="RZ9owO9nLfO6yJ0B6MmYvo"></div></section>
+  <section class="section" id="sec-projects" data-page-node-id="DCdZdFMFVMbihkGnqhMb8x"><div class="sec-head" data-sec="projects" data-page-node-id="sfm05CqMQMzM4JYhg37GCH"></div><div id="body-projects" data-page-node-id="MjSTBinMk3MjCHrVyyuQvo"></div></section>
+  <section class="section" id="sec-talks" data-page-node-id="NcOozF9czHZbqpPsVAe2FC"><div class="sec-head" data-sec="talks" data-page-node-id="AfibFVbLlTOxwDVhLaQFny"></div><div id="body-talks" data-page-node-id="CrRygjXYFuTnqb5uqZ7ZgV"></div></section>
+  <section class="section" id="sec-awards" data-page-node-id="UCFtBolPYbwlFj2osI694Q"><div class="sec-head" data-sec="awards" data-page-node-id="yk2lykXJZ8WPpp5lzmHffF"></div><div id="body-awards" data-page-node-id="0xDCLQ1PClkuMPT7yI5CSm"></div></section>
+  <section class="section" id="sec-contact" data-page-node-id="CCBMlNlIhZIO8QLeIlWJ3g"><div class="sec-head" data-sec="contact" data-page-node-id="OSVbRQFtnFgSnU4ebinjXi"></div><div id="body-contact" data-page-node-id="00ZkngssENk4IlBGpiii4M"></div></section>
+</main>
+
+<footer class="footer no-print" data-page-node-id="E7KLia2KbQzWyshKGNOR0i">
+  <div class="wrap row" style="justify-content:space-between" data-page-node-id="IOMGXE3iyZXIULjCHdto1i">
+    <span id="footerLeft" data-page-node-id="vd9lVDABKsfJnNANSbSE73"></span>
+    <span id="footerRight" data-page-node-id="0E9W24GncJZQrRnefFU3Oz"></span>
+  </div>
+</footer>
+
+<button type="button" class="to-top no-print" id="toTop" aria-label="回到顶部" data-page-node-id="WWpn6n9jIe8bqttcjvIfDr">&#8593;</button>
+
+<script>
+/* ==========================================================================
+   A. 运行时配置
+   --------------------------------------------------------------------------
+   pdfUrl 指向仓库内 assets/ 下的原始简历 PDF；若只上传 index.html，
+   按钮自动回退为「浏览器打印 → 另存为 PDF」（套用单页精简样式）。
+   ========================================================================== */
+const cfg = {
+  showDemoNote: false,  // 已替换为真实简历，隐藏顶部提示条
+  pdfUrl: './assets/Deng-Yuqing-CV.pdf',
+  pdfFileName: 'Deng-Yuqing-CV-2025.03.pdf',
+  lastUpdated: { zh: '2026 年 11 月', en: 'November 2026' }
+};
+
+/* ==========================================================================
+   B. 界面文案（chrome / 标签）
+   ========================================================================== */
+const ui = {
+  zh: {
+    demo: '内容依据 2025.03 版简历整理',
+    docTitle: '邓雨晴 (Maggie) · 药物发现博士 | 学术简历',
+    skip: '跳到主要内容', menu: '目录',
+    brandTag: 'DNA 编码分子库 · 单分子蛋白测序',
+    nav: { summary:'概述', experience:'经历', publications:'论文', projects:'项目', contact:'联系' },
+    pdf: '下载 PDF', pdfTitle: '生成 PDF 简历（浏览器打印 → 另存为 PDF）',
+    heroKicker: 'CURRICULUM VITAE · 2026',
+    heroCta1: '查看科研经历', heroCta2: '下载简历 PDF',
+    summaryLead: '研究定位', summaryFocus: '核心方向',
+    firstAuthor: '第一作者', coFirst: '共同第一作者', coAuthor: '合作作者',
+    objective: '研究目标 / Objective', workflow: '实验方案 / Workflow',
+    findings: '关键结果 / Key findings', platforms: '技术平台 / Platforms',
+    links: '相关链接 / Links', linkPending: '链接待补',
+    thesis: '研究方向 / Research focus', status: '状态', role: '发明人序位',
+    patentName: '专利名称 / IP', paperNote: '在投与撰写中',
+    oral: '口头报告', poster: '海报报告',
+    contactOpen: '目标岗位', contactCta: '邮件联系 / 索取完整版 CV',
+    footerUpdated: '最后更新',
+    footerNote: '内容依据 2025.03 版简历整理 · 支持打印为单页精简 CV',
+    printContact: '联系方式：',
+    languages: '语言', dob: '出生日期'
+  },
+  en: {
+    demo: 'Compiled from the March 2025 CV',
+    docTitle: 'Yuqing Deng (Maggie), PhD | Academic CV — DNA-Encoded Libraries & Protein Sequencing',
+    skip: 'Skip to main content', menu: 'Menu',
+    brandTag: 'DNA-encoded libraries · single-molecule sequencing',
+    nav: { summary:'Profile', experience:'Experience', publications:'Papers', projects:'Projects', contact:'Contact' },
+    pdf: 'Download PDF', pdfTitle: 'Generate PDF CV (browser print → Save as PDF)',
+    heroKicker: 'CURRICULUM VITAE · 2026',
+    heroCta1: 'View research', heroCta2: 'Download CV (PDF)',
+    summaryLead: 'Positioning', summaryFocus: 'Core focus',
+    firstAuthor: 'First author', coFirst: 'Co-first author', coAuthor: 'Co-author',
+    objective: 'Objective', workflow: 'Workflow',
+    findings: 'Key findings', platforms: 'Platforms',
+    links: 'Links', linkPending: 'Link pending',
+    thesis: 'Research focus', status: 'Status', role: 'Inventor rank',
+    patentName: 'Patent / IP', paperNote: 'In submission / in preparation',
+    oral: 'Oral', poster: 'Poster',
+    contactOpen: 'Open to', contactCta: 'Email me / request full CV',
+    footerUpdated: 'Last updated',
+    footerNote: 'Compiled from the March 2025 CV · print-ready one-page CV',
+    printContact: 'Contact: ',
+    languages: 'Languages', dob: 'Date of birth'
+  }
+};
+
+/* 章节标题（中英双语）。num 由 syncSections() 依据实际有内容的章节重排。 */
+const sections = [
+  { id:'summary',      num:'01', kicker:{zh:'PROFILE',en:'PROFILE'},               title:{zh:'个人概述',en:'Professional Summary'},        note:{zh:'从分子库到单分子测序',en:'From libraries to single-molecule readouts'} },
+  { id:'experience',   num:'02', kicker:{zh:'RESEARCH & PROJECTS',en:'RESEARCH & PROJECTS'}, title:{zh:'科研与项目经历',en:'Research & Project Timeline'}, note:{zh:'可量化成果优先',en:'Quantified outcomes first'} },
+  { id:'education',    num:'03', kicker:{zh:'EDUCATION',en:'EDUCATION'},           title:{zh:'教育背景',en:'Education'},                    note:{zh:'',en:''} },
+  { id:'publications', num:'04', kicker:{zh:'PUBLICATIONS',en:'PUBLICATIONS'},     title:{zh:'发表论文',en:'Peer-reviewed Publications'},  note:{zh:'一作 / 合作作者已标注',en:'First / co-author marked'} },
+  { id:'patents',      num:'05', kicker:{zh:'PATENTS & IP',en:'PATENTS & IP'},     title:{zh:'专利与知识产权',en:'Patents & Intellectual Property'}, note:{zh:'3 项 PCT 申请',en:'3 PCT applications'} },
+  { id:'skills',       num:'06', kicker:{zh:'TECHNICAL STACK',en:'TECHNICAL STACK'}, title:{zh:'实验与计算技术栈',en:'Wet-lab & Computational Skills'}, note:{zh:'按平台分组',en:'Grouped by platform'} },
+  { id:'projects',     num:'07', kicker:{zh:'SELECTED PROJECTS',en:'SELECTED PROJECTS'}, title:{zh:'代表性项目',en:'Representative Projects'}, note:{zh:'靶点 → 方案 → 结果',en:'Target → workflow → outcome'} },
+  { id:'talks',        num:'08', kicker:{zh:'CONFERENCES',en:'CONFERENCES'},       title:{zh:'学术会议报告',en:'Conference Presentations'}, note:{zh:'',en:''} },
+  { id:'awards',       num:'09', kicker:{zh:'CERTIFICATIONS',en:'CERTIFICATIONS'}, title:{zh:'资质与项目认可',en:'Certifications & Recognition'}, note:{zh:'',en:''} },
+  { id:'contact',      num:'10', kicker:{zh:'CONTACT',en:'CONTACT'},               title:{zh:'联系方式',en:'Get in Touch'},                 note:{zh:'',en:''} }
+];
+
+/* ==========================================================================
+   C. ⬇⬇⬇ 简历数据 —— 唯一需要编辑的地方 ⬇⬇⬇
+   --------------------------------------------------------------------------
+   数据来源：邓雨晴《个人简历 2025.03.18》PDF，全部条目均可回溯至原件。
+   所有 { zh, en } 字段双语成对；links[].url 为空则渲染「链接待补」。
+   ⚠ 原 PDF 未提供会议报告记录，故 talks 为空数组，页面自动隐藏该章节；
+     补入 { year, type:'oral'|'poster', title:{zh,en}, sub:{zh,en} } 即会自动显示。
+   ⚠ 原 PDF 未标注「共同第一作者」，故仅 Angew. Chem. 标为 first，
+     其余按署名顺序标为合作作者；如实际为共同一作，把 type 改为 'co'。
+   ⚠ 手机号、专利号、发明人序位请按原件二次核对（见交付说明）。
+   ========================================================================== */
+const cvData = {
+  nameZH: '邓雨晴', nameEN: 'Yuqing Deng (Maggie)', initials: 'YD',
+  role: {
+    zh: '药物发现博士 · DNA 编码分子库与单分子蛋白测序',
+    en: 'PhD in Drug Discovery · DNA-Encoded Libraries & Single-Molecule Protein Sequencing'
+  },
+  location: { zh: '常驻深圳 · 香港大学博士', en: 'Based in Shenzhen · PhD, The University of Hong Kong' },
+  intro: {
+    zh: '香港大学药物筛选方向博士，现任 <strong>深圳华大生命科学研究院</strong>生化开发高级工程师。研究主线是 <strong>DNA 编码化学文库</strong>与<strong>核酸 / 多肽化学</strong>驱动的配体发现及<strong>单分子蛋白测序</strong>：从 <strong>175.8 亿</strong>级动态组合库、<strong>20 万</strong>化合物 DEL 建库平台，到核酸-多肽偶联与纳米孔测序文库。以 <strong>SOP、专利与<span class="nowrap">客户里程碑</span></strong>完成方法学交付。',
+    en: 'PhD in drug screening from The University of Hong Kong, currently Senior Biochemical Development Engineer at <strong>BGI Research (Shenzhen)</strong>. My work connects <strong>DNA-encoded chemistry</strong> and <strong>nucleic-acid / peptide chemistry</strong> to ligand discovery and <strong>single-molecule protein sequencing</strong> — from a <strong>17.6-billion</strong>-compound dynamic combinatorial library and a <strong>200,000</strong>-compound DEL build, to nucleic-acid–peptide conjugates and nanopore sequencing libraries. Methodological work is closed with <strong>SOPs, patents and client milestones</strong>.'
+  },
+  metrics: [
+    { n:'17.6B', l:{zh:'动态组合库化合物数', en:'Compounds in dynamic library'} },
+    { n:'+60%',  l:{zh:'纳米孔有效测序读数提升', en:'Gain in effective nanopore reads'} },
+    { n:'4',     l:{zh:'篇 SCI 论文（1 篇一作）', en:'SCI papers (1 first-author)'} },
+    { n:'3',     l:{zh:'项 PCT 专利申请', en:'PCT patent applications'} }
+  ],
+
+  /* --- 01 个人概述 --- */
+  summary: [
+    { zh:'香港大学博士（2016.09–2021.02），研究方向为<strong>药物筛选、DNA 编码分子库、DNA 编码动态分子库与 DNA 分子探针</strong>；此后在晶泰科技与华大生命科学研究院完成从学术方法学到产业平台落地的转化。博士阶段将 DNA 编码动态组合库规模从数百万扩展至 <strong>17,576,576,000</strong>（约 175.8 亿）个化合物，并针对 <strong>5 种不同药物靶点</strong>筛得经生物测定验证的选择性化合物。',
+      en:'PhD from The University of Hong Kong (2016.09–2021.02) in <strong>drug screening, DNA-encoded libraries, DNA-encoded dynamic libraries and DNA molecular probes</strong>, followed by industrial platform build-out at XtalPi and BGI Research. During the PhD I expanded a DNA-encoded dynamic combinatorial library from a few million to <strong>17,576,576,000</strong> (~17.6 billion) compounds and identified selective, bioassay-validated hits against <strong>5 distinct drug targets</strong>.' },
+    { zh:'方法学覆盖<strong>非固载靶点筛选</strong>（连接-交联-纯化）、<strong>活细胞 DNA 编程亲和标记 + FACS</strong>、核酸与多肽固相合成、光交联与偶联、高通量测序与数据分析，以及<strong>纳米孔电学检测</strong>。能与 AIDD 团队共同设计编码标签与文库序列、参与机器学习反应模型验证，并按客户里程碑交付；已形成 <strong>4 篇 SCI 论文</strong>（Angew. Chem. 一作，IF 12.959）、<strong>3 项 PCT 专利申请</strong>、SOP 与团队带教经验。',
+      en:'Methods span <strong>non-immobilized target selection</strong> (ligate–cross-link–purify), <strong>DNA-programmed affinity labelling on live cells with FACS</strong>, solid-phase oligonucleotide / peptide synthesis, photo-crosslinking, NGS and data analysis, and <strong>nanopore electrical detection</strong>. I co-design encoding tags and library sequences with AIDD teams, validate ML reaction models, and deliver to client milestones — resulting in <strong>4 peer-reviewed papers</strong> (first-author Angew. Chem., IF 12.959), <strong>3 PCT applications</strong>, SOPs and team supervision.' }
+  ],
+  focus: [
+    { zh:'DNA 编码分子库 (DEL)', en:'DNA-encoded libraries (DEL)' },
+    { zh:'DNA 编码动态化学文库', en:'DNA-encoded dynamic libraries' },
+    { zh:'非固载靶点筛选', en:'Non-immobilized target selection' },
+    { zh:'活细胞亲和标记 / FACS', en:'Live-cell labelling / FACS' },
+    { zh:'核酸 & 多肽固相合成', en:'Oligo & peptide synthesis' },
+    { zh:'光交联与偶联', en:'Photo-crosslinking & conjugation' },
+    { zh:'纳米孔蛋白测序', en:'Nanopore protein sequencing' },
+    { zh:'高通量测序与数据分析', en:'NGS & data analysis' },
+    { zh:'AIDD / 机器学习协作', en:'AIDD / ML collaboration' },
+    { zh:'LC-MS / NMR / MALDI-TOF', en:'LC-MS / NMR / MALDI-TOF' }
+  ],
+
+  /* --- 02 科研与项目经历（时间轴） --- */
+  experience: [
+    {
+      when:'2022.04 — 至今', kind:{zh:'工业研发 · 主导',en:'Industrial R&D · Lead'},
+      role:{zh:'生化开发高级工程师',en:'Senior Engineer, Biochemical Development'},
+      org:{zh:'深圳华大生命科学研究院 · 深圳',en:'BGI Research · Shenzhen'},
+      points:[
+        { zh:'<strong>多肽光学检测路线</strong>：主导构建<strong>核酸-多肽复合物偶联流程</strong>及配套 SOP，申请专利《核酸-多肽复合物及其制备方法、应用》<strong>PCT/CN2023/079680</strong>；建立多肽 <strong>C 端芯片偶联体系</strong>用于识别，以第二作者参与 <strong>Sci. Immunol.</strong> 投稿；验证 N 端特异性酶切条件，优化「识别-酶切-识别」<strong>五循环体系</strong>稳定性。',
+          en:'<strong>Peptide optical detection</strong>: led the <strong>nucleic-acid–peptide conjugation workflow</strong> and its SOP, yielding patent <strong>PCT/CN2023/079680</strong>; established <strong>C-terminal chip immobilisation</strong> for peptide recognition and contributed as second author to a <strong>Sci. Immunol.</strong> submission; validated N-terminal-specific cleavage and stabilised a <strong>five-cycle</strong> bind–cleave–bind workflow.' },
+        { zh:'<strong>核酸牵引多肽的纳米孔检测路线</strong>：参与电学纳米孔检测文库设计与构建，申请《蛋白测序文库的构建方法及蛋白质的测序方法》<strong>PCT/CN2023/143721</strong>；优化多肽文库定向进孔路线，使<strong>有效测序读数提高 60% 以上</strong>、信号分辨率显著提升，相关方法已申请 <strong>PCT/CN2024/143</strong>。',
+          en:'<strong>Nanopore peptide sequencing</strong>: co-designed electrical nanopore sequencing libraries, yielding patent <strong>PCT/CN2023/143721</strong>; optimised directed peptide translocation to raise <strong>effective sequencing reads by &gt;60%</strong> with markedly improved signal resolution, filed as <strong>PCT/CN2024/143</strong>.' },
+        { zh:'<strong>团队管理与研发转化</strong>：负责新员工培训，带领 <strong>2 名</strong>学生完成本科毕业论文，参与 <strong>3 篇</strong>合作文章的撰写或投稿。',
+          en:'<strong>Team & translation</strong>: trained new hires, supervised <strong>2</strong> students through their undergraduate theses, and contributed to <strong>3</strong> collaborative manuscripts.' }
+      ],
+      tags:[{zh:'核酸-多肽偶联',en:'Nucleic-acid–peptide conjugation'},{zh:'纳米孔测序',en:'Nanopore sequencing'},{zh:'C 端芯片固载',en:'C-terminal chip immobilisation'},{zh:'SOP / PCT 专利',en:'SOP / PCT filings'}]
+    },
+    {
+      when:'2021.03 — 2022.04', kind:{zh:'工业研发 · 平台搭建',en:'Industrial R&D · Platform build'},
+      role:{zh:'研究员',en:'Research Scientist'},
+      org:{zh:'深圳晶泰科技有限公司 · 深圳',en:'XtalPi Inc. · Shenzhen'},
+      points:[
+        { zh:'<strong>DEL 建库平台</strong>：与 AIDD 团队合作设计 DNA 编码标签、引物文库 <strong>ID 标签</strong>及全部文库序列，输出集<strong>全部通过实验验证</strong>；主导机器学习 DNA 上化学反应模型测试，筛选并构建约 <strong>200,000 个化合物</strong>库，协助客户确定筛选条件并达成<strong>第一里程碑</strong>。',
+          en:'<strong>DEL build platform</strong>: co-designed DNA encoding tags, primer-library <strong>ID tags</strong> and all library sequences with the AIDD team — <strong>every output set was experimentally validated</strong>; led testing of ML models for on-DNA reactions, built a <strong>~200,000-compound</strong> library, and helped the client lock screening conditions to reach <strong>milestone 1</strong>.' },
+        { zh:'<strong>实验室从零搭建</strong>：主导场地设计与实施，特别是高分辨质谱实验场地的电、气管路设计，完成 <strong>UPLC-TOF MS、HPLC、自动加样机</strong>等设备的安装及运行。',
+          en:'<strong>Greenfield lab setup</strong>: led facility design and build-out, notably electrical / gas routing for the high-resolution MS lab, and commissioned <strong>UPLC-TOF MS, HPLC and liquid handlers</strong>.' },
+        { zh:'<strong>科研项目管理</strong>：参与申请深圳科创委重大科研项目「基于人工智能的 DEL 平台关键技术的研发及应用」，项目<strong>通过答辩审核</strong>。',
+          en:'<strong>Grant & project work</strong>: co-proposed the Shenzhen STIC major project “AI-enabled key technologies for DEL platforms”, which <strong>passed panel review</strong>.' }
+      ],
+      tags:[{zh:'DEL 建库',en:'DEL library build'},{zh:'AIDD / 机器学习',en:'AIDD / ML'},{zh:'高分辨质谱平台',en:'HR-MS facility'},{zh:'客户里程碑交付',en:'Client milestone delivery'}]
+    },
+    {
+      when:'2016.09 — 2021.02', kind:{zh:'博士研究 · 主导',en:'Doctoral research · Lead'},
+      role:{zh:'博士研究生 · 药物筛选与 DNA 编码分子库',en:'PhD Researcher · Drug Screening & DNA-Encoded Libraries'},
+      org:{zh:'香港大学 · 中国香港',en:'The University of Hong Kong · Hong Kong, China'},
+      points:[
+        { zh:'开发<strong>DNA 编码动态化学文库</strong>方法，将库规模从数百万扩展至 <strong>17,576,576,000</strong> 个化合物；用 DNA 标签特异性鉴定化合物，针对 <strong>5 种不同药物靶点</strong>筛得高选择性有效化合物并逐一完成生物测定验证，成果以<strong>第一作者</strong>发表于 <strong>Angew. Chem. Int. Ed.</strong>（IF 12.959）。',
+          en:'Developed a <strong>DNA-encoded dynamic chemical library</strong> scaled from millions to <strong>17,576,576,000</strong> compounds; used DNA tags to identify hits against <strong>5 distinct drug targets</strong>, each confirmed by bioassay, published as <strong>first author</strong> in <strong>Angew. Chem. Int. Ed.</strong> (IF 12.959).' },
+        { zh:'建立<strong>非固载靶点蛋白</strong>筛选新方法：稳定 DNA 标签标记体系与「连接-交联-纯化」策略，优化聚合酶延伸条件、解决核酸外切酶干扰，筛得<strong>纳摩尔级</strong>候选分子（<strong>Bioconjug. Chem. 2017</strong> / <strong>ACS Comb. Sci. 2019</strong>，第二作者）。',
+          en:'Established <strong>non-immobilized protein target</strong> selection: a robust DNA-tagging system plus a ligate–cross-link–purify strategy, optimised polymerase extension and resolved exonuclease interference, delivering <strong>nanomolar</strong> candidates (<strong>Bioconjug. Chem. 2017</strong> / <strong>ACS Comb. Sci. 2019</strong>, second author).' },
+        { zh:'以光交联策略将 DNA 标签特异性标记到<strong>活细胞目标蛋白</strong>，结合 <strong>FACS 快速筛选 200 多种天然产物</strong>，获得 <strong>nM 级</strong>抑制活性分子（<strong>Chem. Commun. 2021</strong>，第二作者）。',
+          en:'Used photo-crosslinking to tag <strong>membrane proteins on live cells</strong> with DNA labels, then <strong>FACS-screened 200+ natural products</strong> to isolate <strong>nM-range</strong> inhibitors (<strong>Chem. Commun. 2021</strong>, second author).' }
+      ],
+      tags:[{zh:'DNA 编码动态库',en:'Dynamic combinatorial libraries'},{zh:'非固载靶点',en:'Non-immobilized targets'},{zh:'活细胞筛选',en:'Live-cell selection'},{zh:'nM 级命中',en:'nM hits'}]
+    }
+  ],
+
+  /* --- 03 教育背景 --- */
+  education: [
+    { when:'2016.09 — 2021.02', degree:{zh:'博士 · 药物筛选 / 化学生物学',en:'PhD · Drug Screening / Chemical Biology'},
+      school:{zh:'香港大学（中国香港）',en:'The University of Hong Kong (Hong Kong, China)'},
+      thesis:{zh:'药物筛选、DNA 编码分子库、DNA 编码动态分子库、DNA 分子探针',en:'Drug screening; DNA-encoded libraries; DNA-encoded dynamic libraries; DNA molecular probes'} },
+    { when:'2012.09 — 2016.07', degree:{zh:'学士 · 制药工程',en:'BEng · Pharmaceutical Engineering'},
+      school:{zh:'中央民族大学',en:'Minzu University of China'},
+      thesis:{zh:'GPA 3.58',en:'GPA 3.58'} }
+  ],
+
+  /* --- 04 发表论文（type: first 一作 / co 共同一作 / plain 合作作者） --- */
+  publications: [
+    { type:'first', year:'2020', journal:'Angew. Chem. Int. Ed.',
+      title:{zh:'DNA 编码动态化学文库用于直接抑制剂发现的选择',en:'Selection of DNA-Encoded Dynamic Chemical Libraries for Direct Inhibitor Discovery'},
+      authors:'Deng Y, Peng J, Xiong F, et al.',
+      note:{zh:'<strong>第一作者</strong> · 59(35): 14965–14972 · IF 12.959。动态组合库扩展至 <strong>17,576,576,000</strong> 个化合物，针对 <strong>5 种</strong>药物靶点筛得选择性化合物并经生物测定验证。',en:'<strong>First author</strong> · 59(35): 14965–14972 · IF 12.959. Scaled a dynamic library to <strong>17,576,576,000</strong> compounds and validated selective hits against <strong>5</strong> drug targets by bioassay.'},
+      links:[{label:'PubMed 检索 / Search',url:'https://pubmed.ncbi.nlm.nih.gov/?term=Selection+of+DNA-Encoded+Dynamic+Chemical+Libraries+for+Direct+Inhibitor+Discovery'}] },
+    { type:'plain', year:'2021', journal:'Chem. Commun. (Camb.)',
+      title:{zh:'DNA 编程亲和标记实现活细胞膜蛋白的直接配体筛选',en:'Direct ligand screening against membrane proteins on live cells enabled by DNA-programmed affinity labelling'},
+      authors:'Huang Y, Deng Y, Zhang J, Meng L, Li X',
+      note:{zh:'第二作者 · 57(31): 3769–3772 · IF 5.996。光交联标记活细胞目标蛋白，<strong>FACS 筛选 200+ 天然产物</strong>，命中 <strong>nM 级</strong>抑制剂。',en:'Second author · 57(31): 3769–3772 · IF 5.996. Photo-crosslinked DNA labelling on live cells; <strong>FACS screen of 200+ natural products</strong> yielded <strong>nM-range</strong> inhibitors.'},
+      links:[{label:'PubMed 检索 / Search',url:'https://pubmed.ncbi.nlm.nih.gov/?term=Direct+ligand+screening+against+membrane+proteins+on+live+cells+enabled+by+DNA-programmed+affinity+labelling'}] },
+    { type:'plain', year:'2019', journal:'ACS Comb. Sci.',
+      title:{zh:'基于聚合酶延伸的非固载蛋白靶点 DEL 筛选方法',en:'Polymerase-Extension-Based Selection Method for DNA-Encoded Chemical Libraries against Nonimmobilized Protein Targets'},
+      authors:'Shi B, Deng Y, Li X',
+      note:{zh:'第二作者 · 21(5): 345–349 · IF 3.381。优化聚合酶延伸与 DNA-活性分子偶联，解决核酸外切酶干扰，完成光交联产物验证。',en:'Second author · 21(5): 345–349 · IF 3.381. Optimised polymerase extension and DNA–compound conjugation, resolved exonuclease interference, validated photo-crosslinked products.'},
+      links:[{label:'PubMed 检索 / Search',url:'https://pubmed.ncbi.nlm.nih.gov/?term=Polymerase-Extension-Based+Selection+Method+for+DNA-Encoded+Chemical+Libraries+against+Nonimmobilized+Protein+Targets'}] },
+    { type:'plain', year:'2017', journal:'Bioconjug. Chem.',
+      title:{zh:'「连接-交联-纯化」策略用于非固载蛋白的 DEL 筛选',en:'Selecting a DNA-Encoded Chemical Library against Non-immobilized Proteins Using a Ligate-Cross-Link-Purify Strategy'},
+      authors:'Shi B, Deng Y, Zhao P, Li X',
+      note:{zh:'第二作者 · 28(9): 2293–2301 · IF 4.031。建立稳定 DNA 标签标记体系，筛得<strong>纳摩尔级</strong>候选分子。',en:'Second author · 28(9): 2293–2301 · IF 4.031. Built a stable DNA-tagging system and identified <strong>nanomolar</strong> candidates.'},
+      links:[{label:'PubMed 检索 / Search',url:'https://pubmed.ncbi.nlm.nih.gov/?term=Selecting+a+DNA-Encoded+Chemical+Library+against+Non-immobilized+Proteins+Using+a+Ligate-Cross-Link-Purify+Strategy'}] }
+  ],
+  publicationsNote: {
+    zh:'另有 <strong>Sci. Immunol.</strong>（一区）多肽芯片体系论文投稿中（第二作者）、<strong>单分子蛋白测序</strong>全流程论文撰写中，并参与 <strong>3 篇</strong>合作文章的撰写或投稿。',
+    en:'Additional work: a <strong>Sci. Immunol.</strong> manuscript on peptide-chip recognition under submission (second author), a full <strong>single-molecule protein sequencing</strong> paper in preparation, and contributions to <strong>3</strong> collaborative manuscripts.'
+  },
+
+  /* --- 05 专利（编号与发明人序位按原简历照录） --- */
+  patents: [
+    { name:{zh:'制备核酸-多肽复合物的方法',en:'Method for preparing nucleic-acid–peptide conjugates'},
+      id:'PCT/CN2024/143', status:{zh:'已申请',en:'Filed'}, rank:{zh:'第一发明人',en:'1st inventor'} },
+    { name:{zh:'蛋白测序文库的构建方法及蛋白质的测序方法',en:'Protein sequencing library construction and protein sequencing method'},
+      id:'PCT/CN2023/143721', status:{zh:'已申请',en:'Filed'}, rank:{zh:'第一发明人',en:'1st inventor'} },
+    { name:{zh:'核酸-多肽复合物及其制备方法、应用',en:'Nucleic-acid–peptide conjugates: preparation and uses'},
+      id:'PCT/CN2023/079680', status:{zh:'已申请',en:'Filed'}, rank:{zh:'第一发明人',en:'1st inventor'} }
+  ],
+
+  /* --- 06 技术栈分组（tags 双语） --- */
+  skills: [
+    { en:'DNA-Encoded Chemistry', cn:{zh:'DNA 编码化学与文库',en:'DNA-Encoded Chemistry'},
+      desc:{zh:'从编码标签设计到库合成与筛选',en:'From tag design to library synthesis and selection'},
+      tags:[
+        {zh:'DNA 编码分子库 (DEL) 建库',en:'DEL library construction'},
+        {zh:'DNA 编码动态化学文库',en:'DNA-encoded dynamic libraries'},
+        {zh:'DNA 修饰小分子制备',en:'DNA-modified small molecules'},
+        {zh:'核酸固相合成',en:'Solid-phase oligonucleotide synthesis'},
+        {zh:'多肽固相合成',en:'Solid-phase peptide synthesis'},
+        {zh:'小分子设计与合成',en:'Small-molecule design & synthesis'},
+        {zh:'连接-交联-纯化策略',en:'Ligate–cross-link–purify'},
+        {zh:'光交联 / 聚合酶延伸',en:'Photo-crosslinking / polymerase extension'}
+      ] },
+    { en:'Screening & Target Validation', cn:{zh:'筛选与靶点验证',en:'Screening & Target Validation'},
+      desc:{zh:'非固载靶点、活细胞体系与命中验证',en:'Non-immobilized targets, live cells and hit confirmation'},
+      tags:[
+        {zh:'非固载靶点蛋白筛选',en:'Non-immobilized target selection'},
+        {zh:'活细胞 DNA 编程亲和标记',en:'DNA-programmed live-cell labelling'},
+        {zh:'FACS / 流式细胞术',en:'FACS / flow cytometry'},
+        {zh:'荧光实时定量 PCR (qPCR)',en:'Quantitative real-time PCR'},
+        {zh:'细胞标记',en:'Cell labelling'},
+        {zh:'高通量测序 (NGS)',en:'High-throughput sequencing (NGS)'},
+        {zh:'天然产物活性筛选',en:'Natural-product activity screening'},
+        {zh:'nM 级命中验证',en:'nM hit validation'}
+      ] },
+    { en:'Single-Molecule & Biophysics', cn:{zh:'单分子检测与生物物理',en:'Single-Molecule & Biophysics'},
+      desc:{zh:'核酸牵引多肽测序与芯片识别体系',en:'Nanopore peptide sequencing and chip-based recognition'},
+      tags:[
+        {zh:'纳米孔电学检测',en:'Electrical nanopore detection'},
+        {zh:'核酸-多肽复合物偶联',en:'Nucleic-acid–peptide conjugation'},
+        {zh:'多肽 C 端芯片固载',en:'C-terminal peptide immobilisation'},
+        {zh:'N 端特异性酶切',en:'N-terminal-specific cleavage'},
+        {zh:'「识别-酶切-识别」循环',en:'Bind–cleave–bind cycling'},
+        {zh:'蛋白区分与 PTM 识别',en:'Protein discrimination & PTM readout'},
+        {zh:'SOP 建立与实验验证',en:'SOP authoring & validation'}
+      ] },
+    { en:'Analytics, Data & Tools', cn:{zh:'分析、数据与工具',en:'Analytics, Data & Tools'},
+      desc:{zh:'仪器平台、计算协作与项目工具',en:'Instrumentation, computational collaboration and project tools'},
+      tags:[
+        {zh:'UPLC / HPLC',en:'UPLC / HPLC'},
+        {zh:'LC-MS / QTOF Mass',en:'LC-MS / QTOF Mass'},
+        {zh:'NMR / MALDI-TOF',en:'NMR / MALDI-TOF'},
+        {zh:'高通量测序数据分析',en:'NGS data analysis'},
+        {zh:'筛选数据分析',en:'Screening data analysis'},
+        {zh:'AIDD / 机器学习协作',en:'AIDD / ML collaboration'},
+        {zh:'MS Office / Photoshop',en:'MS Office / Photoshop'},
+        {zh:'PMP · CETL 证书',en:'PMP · CETL certificates'}
+      ] }
+  ],
+
+  /* --- 07 代表性项目 --- */
+  projects: [
+    {
+      title:{zh:'用于配体发现的 DNA 编码动态化学文库',en:'DNA-Encoded Dynamic Chemical Libraries for Ligand Discovery'},
+      target:{zh:'靶点：5 种不同药物靶点（非固载 / 可溶性蛋白）',en:'Target: 5 distinct drug targets (non-immobilized / soluble proteins)'},
+      year:'2016.10 — 2020.05',
+      objective:{zh:'突破传统 DEL 库容上限，建立可直接从动态组合库中鉴定抑制剂并验证靶标活性的方法。',en:'Break the library-size ceiling of conventional DEL and establish a method to identify inhibitors directly from dynamic combinatorial libraries with confirmed target activity.'},
+      workflow:[
+        {zh:'开发创新动态组合库方法，扩展库规模',en:'Developed a novel dynamic combinatorial library format and scaled it up'},
+        {zh:'以 DNA 标签特异性鉴定化合物身份',en:'Used DNA tags for unambiguous compound identification'},
+        {zh:'针对 5 种药物靶点筛选高选择性化合物',en:'Selected for high selectivity across 5 drug targets'},
+        {zh:'逐一通过生物测定验证靶标活性',en:'Confirmed target activity of each hit by bioassay'}
+      ],
+      findings:{zh:'库规模由数百万扩展至 <strong>17,576,576,000</strong>（约 175.8 亿）个化合物；筛得针对 <strong>5 种</strong>药物靶点的高选择性有效化合物，全部经生物测定验证；成果以<strong>第一作者</strong>发表于 <strong>Angew. Chem. Int. Ed.</strong>（IF 12.959）。',en:'Scaled the library from millions to <strong>17,576,576,000</strong> (~17.6 B) compounds; identified selective hits against <strong>5</strong> drug targets, all bioassay-validated; published as <strong>first author</strong> in <strong>Angew. Chem. Int. Ed.</strong> (IF 12.959).'},
+      platforms:[{zh:'DNA 编码动态化学文库',en:'DNA-encoded dynamic library'},{zh:'DNA 标签鉴定',en:'DNA-tag decoding'},{zh:'生物活性测定',en:'Bioactivity assay'},{zh:'Angew. Chem. 一作',en:'Angew. Chem. first author'}],
+      links:[{label:'PubMed 检索 / Paper',url:'https://pubmed.ncbi.nlm.nih.gov/?term=Selection+of+DNA-Encoded+Dynamic+Chemical+Libraries+for+Direct+Inhibitor+Discovery'}]
+    },
+    {
+      title:{zh:'针对非固载靶点蛋白的新型筛选方法',en:'A Selection Method for Non-Immobilized Protein Targets'},
+      target:{zh:'靶点：非固载靶点蛋白（无需固定化）',en:'Target: non-immobilized proteins (no surface tethering)'},
+      year:'2016.10 — 2019.10',
+      objective:{zh:'解决传统 DEL 依赖靶点固载导致的构象失真，为动态靶点提供可迁移的液相筛选平台。',en:'Remove the conformational artefacts of target immobilisation in conventional DEL and provide a transferable solution-phase platform for dynamic targets.'},
+      workflow:[
+        {zh:'建立稳定 DNA 标签标记体系',en:'Built a robust DNA-tagging system'},
+        {zh:'优化「连接-交联-纯化」策略',en:'Optimised the ligate–cross-link–purify strategy'},
+        {zh:'测试并优化聚合酶延伸条件，验证 DNA 与活性分子偶联及光交联产物',en:'Optimised polymerase extension; validated DNA–compound conjugation and photo-crosslinked products'},
+        {zh:'解决核酸外切酶干扰，参与液相筛选与筛选数据分析',en:'Resolved exonuclease interference; ran solution-phase selection and data analysis'}
+      ],
+      findings:{zh:'成功筛选出<strong>纳摩尔级</strong>候选分子，完成方法概念验证；形成可复用的动态靶点筛选技术平台，支撑 <strong>2 篇</strong>第二作者论文（<strong>Bioconjug. Chem. 2017</strong>、<strong>ACS Comb. Sci. 2019</strong>）。',en:'Delivered <strong>nanomolar</strong> candidates and completed proof of concept; established a reusable dynamic-target selection platform underpinning <strong>2</strong> second-author papers (<strong>Bioconjug. Chem. 2017</strong>, <strong>ACS Comb. Sci. 2019</strong>).'},
+      platforms:[{zh:'连接-交联-纯化',en:'Ligate–cross-link–purify'},{zh:'聚合酶延伸',en:'Polymerase extension'},{zh:'光交联',en:'Photo-crosslinking'},{zh:'液相筛选 / 数据分析',en:'Solution selection / data analysis'}],
+      links:[{label:'Bioconjug. Chem. · PubMed',url:'https://pubmed.ncbi.nlm.nih.gov/?term=Selecting+a+DNA-Encoded+Chemical+Library+against+Non-immobilized+Proteins+Using+a+Ligate-Cross-Link-Purify+Strategy'},{label:'ACS Comb. Sci. · PubMed',url:'https://pubmed.ncbi.nlm.nih.gov/?term=Polymerase-Extension-Based+Selection+Method+for+DNA-Encoded+Chemical+Libraries+against+Nonimmobilized+Protein+Targets'}]
+    },
+    {
+      title:{zh:'DNA 标记活细胞用于天然产物筛选',en:'DNA-Labelled Live Cells for Natural-Product Screening'},
+      target:{zh:'靶点：活细胞膜蛋白 / 细胞表面目标蛋白',en:'Target: membrane / surface proteins on live cells'},
+      year:'2020.03 — 2021.03',
+      objective:{zh:'在接近生理状态的活细胞体系上建立配体筛选方法，避免纯化蛋白带来的靶点微环境丢失。',en:'Establish ligand screening in a near-physiological live-cell context, preserving the target microenvironment lost in purified-protein assays.'},
+      workflow:[
+        {zh:'采用光交联策略将 DNA 标签特异性标记到活细胞目标蛋白',en:'Site-specifically tagged target proteins on live cells via photo-crosslinking'},
+        {zh:'建立 FACS 快速筛选流程',en:'Built a rapid FACS screening workflow'},
+        {zh:'对天然产物库开展抑制活性筛选与复测',en:'Screened and re-tested a natural-product library for inhibitory activity'}
+      ],
+      findings:{zh:'<strong>FACS 快速筛选 200 多种天然产物</strong>，选出数种抑制活性显著的天然产物，活性达 <strong>nM 范围</strong>；成果发表于 <strong>Chem. Commun.</strong>（2021，第二作者，IF 5.996）。',en:'<strong>FACS-screened 200+ natural products</strong> and isolated several potent inhibitors with activity in the <strong>nM range</strong>; published in <strong>Chem. Commun.</strong> (2021, second author, IF 5.996).'},
+      platforms:[{zh:'光交联 / DNA 亲和标记',en:'Photo-crosslinking / DNA affinity labelling'},{zh:'FACS 流式分选',en:'FACS'},{zh:'活细胞体系',en:'Live-cell assay'},{zh:'天然产物库',en:'Natural-product library'}],
+      links:[{label:'Chem. Commun. · PubMed',url:'https://pubmed.ncbi.nlm.nih.gov/?term=Direct+ligand+screening+against+membrane+proteins+on+live+cells+enabled+by+DNA-programmed+affinity+labelling'}]
+    },
+    {
+      title:{zh:'单分子多肽测序（光学 + 纳米孔双路线）',en:'Single-Molecule Peptide Sequencing (Optical + Nanopore)'},
+      target:{zh:'分析对象：多肽与蛋白质测序 · 6 种蛋白区分',en:'Analyte: peptide / protein sequencing · 6-protein discrimination'},
+      year:'2022.05 — 至今',
+      objective:{zh:'建立可区分蛋白质与翻译后修饰的单分子测序文库与循环识别体系，支撑下一代蛋白测序平台。',en:'Build single-molecule sequencing libraries and cyclic recognition workflows that discriminate proteins and post-translational modifications for next-generation protein sequencing.'},
+      workflow:[
+        {zh:'完成多肽固载后一维信号读取，验证「识别-酶切-识别」体系稳定性与可靠性',en:'Read 1D signals from immobilised peptides; validated bind–cleave–bind stability'},
+        {zh:'建立多肽 C 端芯片偶联体系，与燕山大学国家材料中心合作探索材料表面动态切除',en:'Built C-terminal chip conjugation; collaborated with Yanshan University on dynamic surface cleavage'},
+        {zh:'完成从全蛋白酶切到文库构建全流程，设计静态 / 动态穿孔两类文库方案',en:'Completed protease digestion-to-library workflows; designed static and dynamic translocation libraries'},
+        {zh:'优化多肽文库定向进孔路线，并以算法优化完成氨基酸识别',en:'Optimised directed translocation and algorithmic amino-acid calling'}
+      ],
+      findings:{zh:'有效测序<strong>读数提高 60% 以上</strong>、信号分辨率显著改善；通过文库构建区分 <strong>6 种</strong>不同蛋白质，算法优化实现 <strong>20 种氨基酸及常见翻译后修饰</strong>识别；形成 <strong>3 项 PCT 申请</strong>，<strong>Sci. Immunol.</strong> 投稿 1 篇（第二作者），测序全流程论文撰写中。',en:'Raised effective sequencing <strong>reads by &gt;60%</strong> with markedly better signal resolution; discriminated <strong>6</strong> proteins via library construction and resolved <strong>20 amino acids plus common PTMs</strong> algorithmically; produced <strong>3 PCT filings</strong>, 1 <strong>Sci. Immunol.</strong> submission (second author) and a full sequencing paper in preparation.'},
+      platforms:[{zh:'纳米孔电学检测',en:'Electrical nanopore detection'},{zh:'核酸-多肽偶联',en:'Nucleic-acid–peptide conjugation'},{zh:'C 端芯片固载 / 酶切循环',en:'C-terminal chip / cleavage cycling'},{zh:'文库构建与算法优化',en:'Library design & algorithm optimisation'}],
+      links:[{label:'Google Patents · PCT/CN2023/143721',url:'https://patents.google.com/?q=PCT%2FCN2023%2F143721'},{label:'Google Patents · PCT/CN2023/079680',url:'https://patents.google.com/?q=PCT%2FCN2023%2F079680'}]
+    },
+    {
+      title:{zh:'AI 辅助 RNA 靶点的发现',en:'AI-Assisted RNA Target Discovery'},
+      target:{zh:'靶点：RNA 靶标',en:'Target: RNA targets'},
+      year:'2021.05 — 2022.04',
+      objective:{zh:'为 AI 驱动的 RNA 靶点筛选客户项目提供实验侧工具化合物与筛选条件，支撑靶标选择决策。',en:'Supply the experimental side of an AI-driven RNA target programme — tool compounds and screening conditions — to support target selection.'},
+      workflow:[
+        {zh:'设计并合成一系列工具化合物，用于实验设计与 RNA 靶标验证',en:'Designed and synthesised a series of tool compounds for assay design and RNA target validation'},
+        {zh:'与计算 / AIDD 团队协作确定筛选条件',en:'Co-defined screening conditions with the computational / AIDD team'},
+        {zh:'将筛选条件应用于后续 RNA 靶标选择',en:'Applied the conditions to downstream RNA target selection'}
+      ],
+      findings:{zh:'协助客户确定筛选条件并成功应用于后续 <strong>RNA 靶标选择</strong>，达成项目<strong>第一里程碑</strong>；与同期 DEL 建库平台共同构成「计算设计 → 实验验证」闭环。',en:'Helped the client lock screening conditions that were successfully applied to downstream <strong>RNA target selection</strong>, reaching <strong>milestone 1</strong>; together with the concurrent DEL build, closed the computational-design → experimental-validation loop.'},
+      platforms:[{zh:'工具化合物设计合成',en:'Tool-compound design & synthesis'},{zh:'RNA 靶标验证',en:'RNA target validation'},{zh:'AIDD / 客户协作',en:'AIDD / client collaboration'},{zh:'里程碑交付',en:'Milestone delivery'}],
+      links:[{label:'相关经历 / Experience ↑',url:'#experience'}]
+    }
+  ],
+
+  /* --- 08 学术会议报告：原简历未提供，补入数据后章节自动显示 --- */
+  talks: [],
+
+  /* --- 09 资质与项目认可（仅收录原简历明确记载的条目） --- */
+  awards: [
+    { year:'2021', text:{zh:'参与申请深圳科创委重大科研项目「基于人工智能的 DEL 平台关键技术的研发及应用」，通过答辩审核',en:'Co-proposed the Shenzhen STIC major project “AI-enabled key technologies for DEL platforms” — passed panel review'} },
+    { year:'—',   text:{zh:'PMP 项目管理专业人士认证（原简历「附加信息」）',en:'PMP certification (listed under Additional Information in the source CV)'} },
+    { year:'—',   text:{zh:'CETL 证书（原简历「附加信息」）',en:'CETL certificate (listed under Additional Information in the source CV)'} }
+  ],
+
+  /* --- 10 联系方式 --- */
+  contact: {
+    email:'u3005374@connect.hku.hk', phone:'1867673752',
+    location:{zh:'中国 · 深圳',en:'Shenzhen, China'},
+    languages:{zh:'中文（母语）· 英语（流利）',en:'Chinese (native) · English (fluent)'},
+    open:[{zh:'药企 / Biotech 早期研发',en:'Biotech / pharma early R&D'},
+          {zh:'靶点发现与筛选平台',en:'Target discovery & screening platforms'},
+          {zh:'CRO 项目交付',en:'CRO project delivery'},
+          {zh:'科研岗 / PI 团队',en:'Academic / PI teams'},
+          {zh:'BD 技术尽调',en:'BD technical due diligence'}],
+    note:{zh:'欢迎就 DNA 编码分子库、非固载靶点筛选、单分子蛋白测序平台或项目合作交流；可提供完整实验记录、SOP、专利清单与项目交付材料。',
+          en:'Happy to discuss DNA-encoded libraries, non-immobilized target selection, single-molecule protein sequencing or collaboration. Full experimental records, SOPs, patent list and project deliverables available on request.'}
+  }
+};
+/* ======================= 数据区结束 ======================= */
+
+/* ==========================================================================
+   D. 渲染引擎
+   ========================================================================== */
+let lang = (() => {
+  const saved = localStorage.getItem('cv-lang');
+  if (saved === 'zh' || saved === 'en') return saved;
+  return (navigator.language || '').toLowerCase().startsWith('zh') ? 'zh' : 'en';
+})();
+
+const L = v => (v && typeof v === 'object' && !Array.isArray(v) && ('zh' in v || 'en' in v)) ? (v[lang] ?? v.zh ?? '') : (v ?? '');
+const T = k => (ui[lang] && ui[lang][k] !== undefined) ? ui[lang][k] : (ui.zh[k] ?? '');
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+/* 标签：支持纯字符串（不翻译）与 {zh,en} */
+const tagHtml = t => `<span class="tag">${L(t)}</span>`;
+const tagAccentHtml = t => `<span class="tag tag-accent">${L(t)}</span>`;
+const tagsHtml = arr => `<div class="tags">${(arr || []).map(tagHtml).join('')}</div>`;
+const linkHtml = l => l.url
+  ? `<a class="link-chip" href="${esc(l.url)}" target="_blank" rel="noopener noreferrer">${esc(l.label)} &#8599;</a>`
+  : `<span class="link-chip pending">${esc(l.label)} · ${esc(T('linkPending'))}</span>`;
+
+/* --- 空数据章节自动隐藏，并重排可见章节编号 -------------------------------
+   例：原简历未提供会议报告（talks 为空），该章节隐藏且后续编号自动补位。
+   补入数据后刷新页面即可恢复显示，无需改动 HTML。 */
+function syncSections(){
+  const counts = {
+    summary: cvData.summary.length, experience: cvData.experience.length,
+    education: cvData.education.length, publications: cvData.publications.length,
+    patents: cvData.patents.length, skills: cvData.skills.length,
+    projects: cvData.projects.length, talks: cvData.talks.length,
+    awards: cvData.awards.length, contact: 1
+  };
+  let n = 0;
+  sections.forEach(s => {
+    const el = document.getElementById('sec-' + s.id);
+    if (!el) return;
+    el.hidden = !counts[s.id];
+    if (counts[s.id]) s.num = String(++n).padStart(2, '0');
+  });
+}
+
+/* --- 章节标题 --- */
+function renderSectionHeads(){
+  document.querySelectorAll('[data-sec]').forEach(el => {
+    const s = sections.find(x => x.id === el.dataset.sec);
+    if (!s) return;
+    el.innerHTML = `<span class="sec-num">${s.num}</span>
+      <div class="sec-titles"><p class="kicker">${L(s.kicker)}</p><h2 class="sec-title">${L(s.title)}</h2></div>
+      ${L(s.note) ? `<span class="sec-note">${L(s.note)}</span>` : ''}`;
+  });
+}
+
+/* --- 静态界面文案 --- */
+function renderChrome(){
+  document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
+  document.documentElement.dataset.lang = lang;
+  document.title = T('docTitle');
+  document.querySelectorAll('[data-ui]').forEach(el => { el.textContent = T(el.dataset.ui); });
+  $('#demoText').textContent = T('demo');
+  $('#demoNote').hidden = !cfg.showDemoNote;
+  $('#brandMark').textContent = cvData.initials;
+  $('#brandName').textContent = lang === 'zh' ? cvData.nameZH : cvData.nameEN;
+  $('#brandTag').textContent = T('brandTag');
+  $('#nameCN').textContent = cvData.nameZH;
+  $('#nameEN').textContent = cvData.nameEN;
+  $('#heroRole').textContent = L(cvData.role);
+  $('#heroLoc').textContent = L(cvData.location);
+  $('#heroIntro').innerHTML = L(cvData.intro);
+  /* 首屏无示意图：不再有 figCaption / figTriad 的渲染目标 */
+  $('#footerLeft').textContent = `© 2026 ${cvData.nameEN} · ${cvData.nameZH}`;
+  $('#footerRight').textContent = `${T('footerUpdated')} ${L(cfg.lastUpdated)} · ${T('footerNote')}`;
+  const c = cvData.contact;
+  $('#printContact').textContent = T('printContact') +
+    [c.email, c.phone, L(c.location)].filter(Boolean).join(' · ');
+  $('#btnZH').setAttribute('aria-pressed', String(lang === 'zh'));
+  $('#btnEN').setAttribute('aria-pressed', String(lang === 'en'));
+  const pdfTitle = cfg.pdfUrl ? `${T('pdf')} (${cfg.pdfFileName})` : T('pdfTitle');
+  $('#btnPdf').title = pdfTitle; $('#btnPdf2').title = pdfTitle;
+
+  const navKeys = ['summary','experience','publications','projects','contact'];
+  const navHtml = navKeys.map(k => `<a class="nav-link" href="#sec-${k === 'publications' ? 'publications' : k}" data-nav="${k}">${T('nav')[k]}</a>`).join('');
+  $('#navLinks').innerHTML = navHtml;
+  $('#mobileMenu').innerHTML = navHtml;
+  observeNav();
+}
+
+/* --- Hero 指标 --- */
+function renderHeroMetrics(){
+  $('#metrics').innerHTML = cvData.metrics.map(m =>
+    `<div class="metric"><span class="metric-n">${esc(m.n)}</span><span class="metric-l">${L(m.l)}</span></div>`).join('');
+}
+
+/* --- 01 个人概述 --- */
+function renderSummary(){
+  $('#body-summary').innerHTML = `<div class="g2" style="grid-template-columns:1.55fr 1fr;gap:40px">
+    <div class="stack" style="gap:14px">
+      <p class="small-label">${T('summaryLead')}</p>
+      ${cvData.summary.map(p => `<p class="body-text">${L(p)}</p>`).join('')}
+    </div>
+    <div>
+      <p class="small-label" style="margin-bottom:12px">${T('summaryFocus')}</p>
+      <div class="tags">${cvData.focus.map(tagAccentHtml).join('')}</div>
+    </div>
+  </div>`;
+}
+
+/* --- 02 科研经历时间轴 --- */
+function renderExperience(){
+  $('#body-experience').innerHTML = `<div class="tl">${cvData.experience.map(e => `
+    <article class="tl-item">
+      <div class="tl-meta"><span class="tl-year">${esc(e.when)}</span><span class="tl-kind">${L(e.kind)}</span></div>
+      <div class="tl-content card">
+        <h3 class="tl-role">${L(e.role)}</h3>
+        <p class="tl-org">${L(e.org)}</p>
+        <ul class="tl-points">${e.points.map(p => `<li>${L(p)}</li>`).join('')}</ul>
+        <div style="margin-top:14px">${tagsHtml(e.tags)}</div>
+      </div>
+    </article>`).join('')}</div>`;
+}
+
+/* --- 03 教育背景 --- */
+function renderEducation(){
+  $('#body-education').innerHTML = `<div class="g2">${cvData.education.map(e => `
+    <div class="card">
+      <span class="serif" style="font-size:22px;font-weight:600;color:var(--accent)">${esc(e.when)}</span>
+      <h3 style="font-family:var(--hei);font-size:15px;font-weight:600;margin:8px 0 2px;line-height:1.5">${L(e.degree)}</h3>
+      <p class="muted" style="font-size:12.5px;margin:0 0 12px">${L(e.school)}</p>
+      <p class="small-label" style="margin-bottom:3px">${T('thesis')}</p>
+      <p style="font-size:12.5px;line-height:1.75;color:var(--ink-2);margin:0">${L(e.thesis)}</p>
+    </div>`).join('')}</div>`;
+}
+
+/* --- 04 论文 --- */
+function renderPublications(){
+  const badge = t => t === 'first'
+    ? `<span class="badge badge-first">${T('firstAuthor')}</span>`
+    : t === 'co' ? `<span class="badge badge-co">${T('coFirst')}</span>`
+    : `<span class="badge badge-plain">${T('coAuthor')}</span>`;
+  $('#body-publications').innerHTML = cvData.publications.map((p, i) => `
+    <article class="list-row">
+      <span class="list-n">${String(i + 1).padStart(2,'0')}</span>
+      <div>
+        <div class="pub-meta">${badge(p.type)}<span class="pub-journal">${esc(p.journal)}</span>
+          <span class="muted" style="font-size:12px">${esc(p.year)}</span></div>
+        <h3 class="pub-title">${L(p.title)}</h3>
+        <p class="pub-authors">${esc(p.authors)}</p>
+        <p class="pub-note">${L(p.note)}</p>
+        <div class="row" style="gap:14px;margin-top:9px">${(p.links || []).map(linkHtml).join('')}</div>
+      </div>
+    </article>`).join('') +
+    `<p class="pub-note" style="margin:14px 0 0;padding-top:10px;border-top:1px dashed var(--line)"><span class="small-label">${T('paperNote')} · </span>${L(cvData.publicationsNote)}</p>`;
+}
+
+/* --- 05 专利 --- */
+function renderPatents(){
+  $('#body-patents').innerHTML = `<div style="border-top:1px solid var(--line)">
+    <div class="pat-row" style="border-bottom:1px solid var(--line);padding:9px 0">
+      <span class="small-label">${T('patentName')}</span>
+      <span class="small-label">${T('status')}</span><span class="small-label"></span><span class="small-label">${T('role')}</span>
+    </div>
+    ${cvData.patents.map(p => `<div class="pat-row">
+      <p class="pat-name">${L(p.name)}</p>
+      <span class="pat-id">${esc(p.id)}</span>
+      <span class="badge badge-brass" style="justify-self:start">${L(p.status)}</span>
+      <span style="font-size:12px;color:var(--muted)">${L(p.rank)}</span>
+    </div>`).join('')}
+  </div>`;
+}
+
+/* --- 06 技术栈 --- */
+function renderSkills(){
+  $('#body-skills').innerHTML = `<div class="g2">${cvData.skills.map(g => `
+    <div class="skill-group">
+      <div class="skill-head"><span class="skill-en">${esc(g.en)}</span><span class="skill-cn">${L(g.cn)}</span></div>
+      <p class="skill-desc">${L(g.desc)}</p>
+      <div class="tags">${g.tags.map(t => `<span class="tag">${esc(L(t))}</span>`).join('')}</div>
+    </div>`).join('')}</div>`;
+}
+
+/* --- 07 代表性项目 --- */
+function renderProjects(){
+  $('#body-projects').innerHTML = `<div class="stack" style="gap:18px">${cvData.projects.map((p, i) => `
+    <article class="card proj-card">
+      <div class="proj-head">
+        <div><span class="proj-idx">PROJECT ${String(i + 1).padStart(2,'0')} · ${esc(p.year)}</span>
+          <h3 class="proj-title">${L(p.title)}</h3>
+          <p class="proj-target">${L(p.target)}</p></div>
+        <div class="tags">${p.platforms.slice(0,2).map(tagAccentHtml).join('')}</div>
+      </div>
+      <div class="proj-grid">
+        <div class="proj-detail"><p class="field-label">${T('objective')}</p><p class="field-body">${L(p.objective)}</p></div>
+        <div class="proj-detail"><p class="field-label">${T('workflow')}</p>
+          <ol class="flow">${p.workflow.map(w => `<li>${L(w)}</li>`).join('')}</ol></div>
+        <div class="finding-box"><p class="field-label">${T('findings')}</p><p class="field-body">${L(p.findings)}</p></div>
+        <div class="proj-detail"><p class="field-label">${T('platforms')}</p><div class="tags" style="margin-top:8px">${p.platforms.map(tagHtml).join('')}</div></div>
+      </div>
+      <div class="proj-foot">
+        <span class="small-label">${T('links')}</span>
+        <div class="proj-links">${p.links.map(linkHtml).join('')}</div>
+      </div>
+    </article>`).join('')}</div>`;
+}
+
+/* --- 08 会议 --- */
+function renderTalks(){
+  $('#body-talks').innerHTML = cvData.talks.map(t => `
+    <div class="talk-row">
+      <span class="talk-year">${esc(t.year)}</span>
+      <div class="talk-main"><p class="talk-title">${L(t.title)}</p><p class="talk-sub">${L(t.sub)}</p></div>
+      <span class="badge ${t.type === 'oral' ? 'badge-first' : 'badge-plain'}">${t.type === 'oral' ? T('oral') : T('poster')}</span>
+    </div>`).join('');
+}
+
+/* --- 09 奖项 --- */
+function renderAwards(){
+  $('#body-awards').innerHTML = cvData.awards.map(a => `
+    <div class="award-row"><span class="award-year">${esc(a.year)}</span>
+      <p class="talk-title" style="padding-top:3px">${L(a.text)}</p></div>`).join('');
+}
+
+/* --- 10 联系 --- */
+function renderContact(){
+  const c = cvData.contact;
+  /* 可选字段：原简历未提供即不渲染，避免出现 undefined / 空行 */
+  const item = (k, v) => v ? `<div class="contact-item"><span class="contact-k">${k}</span><span class="contact-v">${v}</span></div>` : '';
+  const rows = [
+    item('E-mail', `<a href="mailto:${esc(c.email)}">${esc(c.email)}</a>`),
+    item('Tel.', esc(c.phone)),
+    item('WeChat', c.wechat ? L(c.wechat) : ''),
+    item('Location', L(c.location)),
+    item(T('languages'), c.languages ? L(c.languages) : ''),
+    /* 国际简历惯例：出生日期不在英文版展示，避免年龄相关信息 */
+    item(T('dob'), c.dob && lang === 'zh' ? esc(c.dob) : ''),
+    item('ORCID', c.orcid ? `<a href="https://orcid.org/${esc(c.orcid)}" target="_blank" rel="noopener noreferrer">${esc(c.orcid)}</a>` : ''),
+    item('Scholar', c.scholar ? `<a href="${esc(c.scholar)}" target="_blank" rel="noopener noreferrer">Google Scholar &#8599;</a>` : ''),
+    item('GitHub', c.github ? `<a href="${esc(c.github)}" target="_blank" rel="noopener noreferrer">${esc(c.github)}</a>` : '')
+  ].join('');
+  $('#body-contact').innerHTML = `<div class="g2" style="grid-template-columns:1.1fr .9fr;gap:24px">
+    <div class="contact-card">${rows}</div>
+    <div class="stack" style="gap:16px">
+      <div class="contact-note">${L(c.note)}</div>
+      <div><p class="small-label" style="margin-bottom:10px">${T('contactOpen')}</p>
+        <div class="tags">${c.open.map(tagAccentHtml).join('')}</div></div>
+      <div class="row no-print" style="gap:10px;margin-top:4px">
+        <a class="btn btn-solid" href="mailto:${esc(c.email)}?subject=${encodeURIComponent('CV / 简历交流')}">${T('contactCta')}</a>
+        <button type="button" class="btn btn-quiet" id="btnPdf3">${T('pdf')}</button>
+      </div>
+    </div>
+  </div>`;
+  const b = $('#btnPdf3'); if (b) b.addEventListener('click', handlePdf);
+}
+
+function renderAll(){
+  syncSections();
+  renderSectionHeads(); renderChrome(); renderHeroMetrics();
+  renderSummary(); renderExperience(); renderEducation(); renderPublications();
+  renderPatents(); renderSkills(); renderProjects(); renderTalks(); renderAwards(); renderContact();
+}
+
+/* ==========================================================================
+   E. 交互：语言切换 / PDF / 导航 / 平滑滚动降级
+   ========================================================================== */
+function setLang(next){
+  if (next === lang) return;
+  lang = next;
+  localStorage.setItem('cv-lang', lang);
+  renderAll();
+}
+
+function handlePdf(){
+  if (cfg.pdfUrl){
+    const a = document.createElement('a');
+    a.href = cfg.pdfUrl; a.download = cfg.pdfFileName;
+    document.body.appendChild(a); a.click(); a.remove();
+  } else {
+    window.print();   /* 浏览器打印 → 目标选择「另存为 PDF」→ 自动套用精简单页样式 */
+  }
+}
+
+function bind(){
+  $('#btnZH').addEventListener('click', () => setLang('zh'));
+  $('#btnEN').addEventListener('click', () => setLang('en'));
+  ['#btnPdf','#btnPdf2'].forEach(id => $(id).addEventListener('click', handlePdf));
+  $('#demoClose').addEventListener('click', () => { $('#demoNote').hidden = true; });
+
+  const menu = $('#mobileMenu'), menuBtn = $('#btnMenu');
+  menuBtn.addEventListener('click', () => {
+    menu.hidden = !menu.hidden;
+    menuBtn.setAttribute('aria-expanded', String(!menu.hidden));
+  });
+  menu.addEventListener('click', e => {
+    if (e.target.tagName === 'A'){ menu.hidden = true; menuBtn.setAttribute('aria-expanded','false'); }
+  });
+
+  const top = $('#toTop');
+  top.addEventListener('click', () => window.scrollTo({top:0,behavior:'smooth'}));
+  window.addEventListener('scroll', () => top.classList.toggle('show', window.scrollY > 620), {passive:true});
+}
+
+/* 章节高亮（功能性反馈，非装饰动画） */
+let navObserver = null;
+function observeNav(){
+  if (navObserver) navObserver.disconnect();
+  if (!('IntersectionObserver' in window)) return;
+  navObserver = new IntersectionObserver(entries => {
+    entries.forEach(en => {
+      if (!en.isIntersecting) return;
+      document.querySelectorAll('.nav-link').forEach(a => a.classList.toggle('active', a.dataset.nav === en.target.dataset.navKey));
+    });
+  }, {rootMargin:'-20% 0px -70% 0px', threshold:0});
+  document.querySelectorAll('#sec-summary,#sec-experience,#sec-publications,#sec-projects,#sec-contact').forEach(el => {
+    el.dataset.navKey = el.id.replace('sec-','');
+    navObserver.observe(el);
+  });
+}
+
+bind();
+renderAll();
+</script>
 </body>
 </html>
